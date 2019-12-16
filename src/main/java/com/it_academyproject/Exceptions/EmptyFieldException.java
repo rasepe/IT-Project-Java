@@ -12,4 +12,10 @@ public class EmptyFieldException extends Exception
         super( "The field " + fieldName + " is cannot be empty" );
         this.fieldName = fieldName;
     }
+    //Constructor
+    public EmptyFieldException( String fieldName , String type)
+    {
+        super( "The field " + fieldName + " is " + type );
+        this.fieldName = fieldName;
+    }
 }

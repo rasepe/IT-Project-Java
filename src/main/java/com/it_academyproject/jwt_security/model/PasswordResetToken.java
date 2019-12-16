@@ -1,6 +1,6 @@
 package com.it_academyproject.jwt_security.model;
 
-import com.it_academyproject.Domains.VicMyAppUser;
+import com.it_academyproject.Domains.MyAppUser;
 
 import javax.persistence.*;
 import java.util.Calendar;
@@ -19,9 +19,9 @@ public class PasswordResetToken
 
     private String token;
 
-    @OneToOne(targetEntity = VicMyAppUser.class, fetch = FetchType.EAGER)
+    @OneToOne(targetEntity = MyAppUser.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "users_id")
-    private VicMyAppUser myAppUser;
+    private MyAppUser myAppUser;
 
     private Date expiryDate;
 
@@ -29,7 +29,7 @@ public class PasswordResetToken
     {
 
     }
-    public PasswordResetToken(String token , VicMyAppUser myAppUser)
+    public PasswordResetToken(String token , MyAppUser myAppUser)
     {
         this.token = token;
         this.myAppUser = myAppUser;
@@ -56,11 +56,11 @@ public class PasswordResetToken
         this.token = token;
     }
 
-    public VicMyAppUser getMyAppUser() {
+    public MyAppUser getMyAppUser() {
         return myAppUser;
     }
 
-    public void setMyAppUser(VicMyAppUser myAppUser) {
+    public void setMyAppUser(MyAppUser myAppUser) {
         this.myAppUser = myAppUser;
     }
 

@@ -4,7 +4,7 @@ import com.it_academyproject.Domains.Exercice;
 import com.it_academyproject.Domains.StatusExercice;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface VicStatusExerciceRepository  extends JpaRepository<StatusExercice, Integer>
+public interface StatusExerciceRepository extends JpaRepository<StatusExercice, Integer>
 {
         StatusExercice findOneById( Integer id );
 }

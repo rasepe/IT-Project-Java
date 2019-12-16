@@ -79,4 +79,27 @@ public class Course {
 		return "Course [id=" + id + ", beginDate=" + beginDate + ", endDate=" + endDate + "]";
 	}
 
+	public MyAppUser getUserStudent() {
+		return userStudent;
+	}
+
+	public void setUserStudent(MyAppUser userStudent) {
+		this.userStudent = userStudent;
+	}
+
+	public MyAppUser getUserTeacher() {
+		return userTeacher;
+	}
+
+	public void setUserTeacher(MyAppUser userTeacher) {
+		this.userTeacher = userTeacher;
+	}
+
+	public Itinerary getItinerary() {
+		return itinerary;
+	}
+
+	public void setItinerary(Itinerary itinerary) {
+		this.itinerary = itinerary;
+	}
 }

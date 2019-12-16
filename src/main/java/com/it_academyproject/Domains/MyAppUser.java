@@ -9,8 +9,6 @@ import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,7 +17,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.it_academyproject.Exceptions.EmptyFieldException;
-import com.it_academyproject.Tools.View;
+import com.it_academyproject.tools.View;
 
 
 
@@ -45,18 +43,28 @@ public class MyAppUser {
 	private String email;
 	
 	@JsonView(View.SummaryWithOthers.class)
-	private byte gender;
+	private char gender;
+
+	@JsonView(View.SummaryWithOthers.class)
+	private int age;
 	
 	@JsonView(View.SummaryWithOthers.class)
 	private String portrait;
-	
+
+	@JsonView(View.SummaryWithOthers.class)
+	@ManyToOne
+	private Seat seat;
+
+
+
 	private String password;
 	private boolean enabled;
 	private Date lastLogin;
+
 	
 	@ManyToOne (fetch = FetchType.EAGER)
 	@JoinColumn (name="rol_id")
-	private Rol rol;
+	private Role role;
 	
 	@OneToMany (targetEntity = Absence.class, cascade = CascadeType.ALL)
 	private List <Absence> absences = new ArrayList <Absence>();
@@ -69,9 +77,9 @@ public class MyAppUser {
 		
 	}
 	
-	public MyAppUser(String firstName, String lastName, String idDocument, String email, byte gender,
-			String portrait, String password, boolean enabled, Rol rol) {
-		
+	public MyAppUser(String firstName, String lastName, String idDocument, String email, char gender,
+			String portrait, String password, boolean enabled, Role role) {
+
 		
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -81,7 +89,7 @@ public class MyAppUser {
 		this.portrait = portrait;
 		this.password = password;
 		this.enabled = enabled;
-		this.rol = rol;
+		this.role = role;
 	}
 	
 	 public MyAppUser(String email, String password) throws EmptyFieldException
@@ -107,9 +115,14 @@ public class MyAppUser {
 		return id;
 	}
 
-	public void setId(UUID id) {
-		UUID uuid = UUID.randomUUID();
+	public void setId(UUID id)
+	{
 		this.id = id.toString();
+	}
+	public void setId()
+	{
+		UUID uuid = UUID.randomUUID();
+		this.id = uuid.toString();
 	}
 
 	public String getFirstName() {
@@ -144,11 +157,19 @@ public class MyAppUser {
 		this.email = email;
 	}
 
-	public byte getGender() {
+	public char getGender() {
 		return gender;
 	}
 
-	public void setGender(byte gender) {
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public void setGender(char gender) {
 		this.gender = gender;
 	}
 
@@ -176,12 +197,12 @@ public class MyAppUser {
 		this.enabled = enabled;
 	}
 
-	public Rol getRol() {
-		return rol;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setRol(Rol rol) {
-		this.rol = rol;
+	public void setRole(Role role) {
+		this.role = role;
 	}
 	
 	public Date getLastLogin() {
@@ -192,10 +213,15 @@ public class MyAppUser {
 		this.lastLogin = lastLogin;
 	}
 
-	
+	public Seat getSeat() {
+		return seat;
+	}
 
+	public void setSeat(Seat seat) {
+		this.seat = seat;
+	}
 
-/*	public String toString() {
+	/*	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", idDocument=" + idDocument
 				+ ", email=" + email + ", gender=" + gender + ", portrait=" + portrait + ", password=" + password
 				+ ", enabled=" + enabled + "]";

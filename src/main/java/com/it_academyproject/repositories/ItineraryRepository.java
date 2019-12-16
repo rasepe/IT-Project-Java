@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface VicItineraryRepository extends JpaRepository<Itinerary, Integer>
+public interface ItineraryRepository extends JpaRepository<Itinerary, Integer>
 {
     Itinerary findOneById(Integer id );
 }

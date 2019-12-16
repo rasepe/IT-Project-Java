@@ -1,10 +1,10 @@
 package com.it_academyproject.jwt_security.security;
 
-import com.it_academyproject.Domains.VicMyAppUser;
+import com.it_academyproject.Domains.MyAppUser;
 import com.it_academyproject.Exceptions.EmptyFieldException;
 import com.it_academyproject.Exceptions.WrongEmailPassword;
 import com.it_academyproject.jwt_security.constants.SecurityConstants;
-import com.it_academyproject.jwt_security.repository.MyAppUserRepository;
+import com.it_academyproject.repositories.MyAppUserRepository;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -61,7 +61,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 loginData.setPassword(loginDataJson.get("password").toString());
 
                 BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-                VicMyAppUser myAppUser = myAppUserRepository.findByEmail(loginData.getEmail());
+                MyAppUser myAppUser = myAppUserRepository.findByEmail(loginData.getEmail());
                 if ( passwordEncoder.matches(loginData.getPassword() , myAppUser.getPassword() ))
                 {
                     List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();

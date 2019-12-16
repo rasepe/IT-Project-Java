@@ -1,7 +1,9 @@
 package com.it_academyproject.tools.dataImporter;
 
 import com.it_academyproject.Domains.*;
+
 import com.it_academyproject.repositories.*;
+
 import com.it_academyproject.tools.excel.Excel;
 
 import org.apache.poi.ss.usermodel.DateUtil;
@@ -16,21 +18,25 @@ import java.util.*;
 public class DataImporter
 {
     @Autowired
-    VicMyAppUserRepository myAppUserRepository;
+    MyAppUserRepository myAppUserRepository;
     @Autowired
-    VicCourseRepository courseRepository;
+    CourseRepository courseRepository;
     @Autowired
-    VicAbsenceRepository absenceRepository;
+    AbsenceRepository absenceRepository;
     @Autowired
-    VicRoleRepository roleRepository;
+    RoleRepository roleRepository;
     @Autowired
-    VicItineraryRepository itineraryRepository;
+    ItineraryRepository itineraryRepository;
     @Autowired
-    VicExerciceRepository exerciceRepository;
+    ExerciceRepository exerciceRepository;
     @Autowired
-    VicStatusExerciceRepository statusExerciceRepository;
+    StatusExerciceRepository statusExerciceRepository;
     @Autowired
-    VicUserExerciceRepository userExerciceRepository;
+    UserExerciceRepository userExerciceRepository;
+    @Autowired
+    SeatRepository seatRepository;
+
+
     public boolean manualCreation ()
     {
         //role
@@ -101,8 +107,8 @@ public class DataImporter
             for (Integer i : excelContent.keySet())
             {
                 //create the objects that will be placed in the data base
-                VicMyAppUser myAppUser = new VicMyAppUser();
-                VicCourse vicCourse = new VicCourse();
+               MyAppUser myAppUser = new MyAppUser();
+                Course course = new Course();
                 currentRow = excelContent.get(i);
 
                 if (!currentRow.get(0).equals(""))
@@ -130,9 +136,22 @@ public class DataImporter
                             }
                             else if ( j == 2) //Núm. Document
                             {
+                                /*
+                                PREVIOUSLY USED TO ESTIMATE THE BIRTHDAY, REMOVED FOR AGE.
                                 Calendar cal = Calendar.getInstance();
                                 cal.set(2019-Integer.parseInt(currentCell), 1, 1);
-                                myAppUser.setBirthday ( new java.sql.Date(cal.getTimeInMillis()) );
+
+                                 */
+                                try
+                                {
+                                    myAppUser.setAge ( Integer.parseInt(currentCell) );
+                                }
+                                catch ( Exception e )
+                                {
+                                    System.out.println(e.getLocalizedMessage());
+                                    //myAppUser.setAge( null );
+                                }
+
                             }
                             else if ( j == 3) //Núm. Document
                             {
@@ -158,15 +177,15 @@ public class DataImporter
                             {
                                 if (currentCell.equals(""))
                                 {
-                                    vicCourse.setBeginDate( null );
-                                    vicCourse.setEndDate(null);
-                                    vicCourse.setUserStudent(myAppUser);
+                                    course.setBeginDate( null );
+                                    course.setEndDate(null);
+                                    course.setUserStudent(myAppUser);
                                 }
                                 else
                                 {
-                                    vicCourse.setBeginDate( stringToDate( currentCell) );
-                                    vicCourse.setEndDate(null);
-                                    vicCourse.setUserStudent(myAppUser);
+                                    course.setBeginDate( stringToDate( currentCell) );
+                                    course.setEndDate(null);
+                                    course.setUserStudent(myAppUser);
                                 }
 
                             }
@@ -174,7 +193,7 @@ public class DataImporter
                             {
                                 if (! currentCell.equals(""))
                                 {
-                                    vicCourse.setEndDate( stringToDate(currentCell) );
+                                    course.setEndDate( stringToDate(currentCell) );
                                 }
                             }
                             else if ( j == 9)
@@ -190,16 +209,16 @@ public class DataImporter
                                 else
                                 {
                                     myAppUser = myAppUserRepository.findByEmail(myAppUser.getEmail());
-                                    vicCourse.setUserStudent( myAppUser );
+                                    course.setUserStudent( myAppUser );
                                 }
                                 //course
-                                List<VicCourse> vicCourseList = courseRepository.findByUserStudent( myAppUser );
+                                List<Course> courseList = courseRepository.findByUserStudent( myAppUser );
                                 //System.out.println( courseList );
                                 //check if the student has a course
-                                if (( vicCourseList == null ) || ( vicCourseList.size() == 0 ))
+                                if (( courseList == null ) || ( courseList.size() == 0 ))
                                 {
-                                    vicCourse.setItinerary( itinerary );
-                                    courseRepository.save(vicCourse);
+                                    course.setItinerary( itinerary );
+                                    courseRepository.save(course);
                                 }
                                 if (! currentCell.equals(""))
                                 {
@@ -208,21 +227,21 @@ public class DataImporter
 
                                     for (int k = 0; k < array.length; k++)
                                     {
-                                        VicAbsence vicAbsence = new VicAbsence();
-                                        vicAbsence.setDateMissing( stringToDate(array[k]));
-                                        if ( vicAbsence.getDateMissing() != null )
+                                        Absence absence = new Absence();
+                                        absence.setDateMissing( stringToDate(array[k]));
+                                        if ( absence.getDateMissing() != null )
                                         {
-                                            vicAbsence.setUserStudent( myAppUser );
+                                            absence.setUserStudent( myAppUser );
                                             //absence
-                                            List<VicAbsence> vicAbsenceList = absenceRepository.findByUserStudentAndDateMissing( myAppUser , vicAbsence.getDateMissing());
-                                            if (( vicAbsenceList == null ) ||  (vicAbsenceList.size() == 0 ))
+                                            List<Absence> absenceList = absenceRepository.findByUserStudentAndDateMissing( myAppUser , absence.getDateMissing());
+                                            if (( absenceList == null ) ||  (absenceList.size() == 0 ))
                                             {
                                                 //System.out.println(absence);
-                                                absenceRepository.save(vicAbsence);
+                                                absenceRepository.save(absence);
                                             }
                                             else
                                             {
-                                                System.out.println(vicAbsenceList);
+                                                System.out.println(absenceList);
                                             }
                                         }
                                     }
@@ -250,7 +269,7 @@ public class DataImporter
         return true;
     }
 
-    public JSONObject importEjerciciosporalumno ()
+    public JSONObject importEjerciciosporalumno ( int sheetNumber , int itineraryNumber )
     {
         List <String> NotFoundUser = new ArrayList<>();
         Role role = roleRepository.findOneById ( 1 );
@@ -261,21 +280,22 @@ public class DataImporter
             String fileLocation = "Ejerciciosporalumno.xls";
             Excel excel = new Excel();
             excel.openFile(fileLocation);
-            Map<Integer, List<String>> excelContent = excel.readJExcelContent(0);
+            Map<Integer, List<String>> excelContent = excel.readJExcelContent(sheetNumber);
             Map<Integer , Exercice> exerciceMap = new HashMap<>();
             //System.out.println( excelContent );
 
             // Get a set of the entries
             Set set = excelContent.entrySet();
             List<String> currentRow;
-
+            Map<Integer , Integer> keyList = new HashMap<>();
             for (Integer i : excelContent.keySet())
             {
-                VicCourse vicCourse = new VicCourse();
+                Course course = new Course();
                 currentRow = excelContent.get(i);
-                VicMyAppUser myAppUser = null;
+                MyAppUser myAppUser = null;
                 for (int j = 0; j < currentRow.size() ; j++)
                 {
+
                     String currentCell = currentRow.get( j );
                     //title row
                     if ( i == 0 )
@@ -293,17 +313,22 @@ public class DataImporter
                         {
                             //Nothing
                             //check if is on the DB
-                            List<Exercice> exercicesList = exerciceRepository.findAllByNameAndItinerary( currentCell , itineraryRepository.findOneById( 1 ) );
+                            List<Exercice> exercicesList = exerciceRepository.findAllByNameAndItinerary( currentCell , itineraryRepository.findOneById( itineraryNumber ) );
                             if ( (exercicesList == null ) || ( exercicesList.size() == 0) )
                             {
                                 //exists do nothing
-                                Integer exerciceKey = j - 3;
+
                                 Exercice exercice = new Exercice();
-                                exercice.setId( j );
-                                exercice.setItinerary( itineraryRepository.findOneById( 1 ) );
+                                exercice.setItinerary( itineraryRepository.findOneById( itineraryNumber ) );
                                 exercice.setName( currentCell );
                                 exerciceMap.put( j , exercice );
-                                exerciceRepository.save( exercice );
+                                exercice  = exerciceRepository.save( exercice );
+                                keyList.put( j , exercice.getId());
+
+                            }
+                            else if ( exercicesList.size() > 0 )
+                            {
+                                keyList.put( j , exercicesList.get(0).getId());
                             }
 
 
@@ -320,18 +345,18 @@ public class DataImporter
                                 int commaPos = currentCell.indexOf(",");
                                 String lastName = currentCell.substring(0 , commaPos);
                                 String name = currentCell.substring(commaPos+2 , currentCell.length());
-                                List<VicMyAppUser> myAppUserList = myAppUserRepository.findByFirstNameAndLastName ( name , lastName );
+                                List<MyAppUser> myAppUserList = myAppUserRepository.findByFirstNameAndLastName ( name , lastName );
                                 if ((myAppUserList == null ) || ( myAppUserList.size() == 0 ))
                                 {
                                     //user not found so we are going to look for contains
                                     //look by name
-                                    List<VicMyAppUser> myAppUserList1 = (myAppUserRepository.findByFirstName( name ));
+                                    List<MyAppUser> myAppUserList1 = (myAppUserRepository.findByFirstName( name ));
                                     if ((myAppUserList1 != null ) && ( myAppUserList1.size() != 0 ))
                                     {
                                         //check if it contains the last name
                                         for (int k = 0; k < myAppUserList1.size() ; k++)
                                         {
-                                            System.out.println( myAppUserList1 );
+                                            System.out.println( "357 - " + myAppUserList1.get(k).getFirstName() +  " " +  myAppUserList1.get(k).getLastName());
                                             if ( myAppUserList1.get(k).getLastName().indexOf( lastName ) > 0 )
                                             {
                                                 //keeper contains last name
@@ -357,7 +382,7 @@ public class DataImporter
                         }
                         else if (( j > 1 ) && ( j < 16) && ( ! currentCell.equals("")))
                         {
-                            Integer exerciceKey = j - 1;
+                            Integer exerciceKey = keyList.get(j);
                             //check if there is an excercise associated with this
                             Exercice exercice = exerciceRepository.findOneById( exerciceKey );
                             if ( exercice  == null  )
@@ -395,6 +420,20 @@ public class DataImporter
                                     userExercice.setUserStudent( myAppUser );
                                     if ( userExercice.getDate_status() != null )
                                         userExerciceRepository.save ( userExercice );
+                                        List<Course> thisUsersCourseList = courseRepository.findByUserStudent(myAppUser);
+                                        if ( itineraryNumber != 1 )
+                                        {
+                                            if (( thisUsersCourseList != null ) && ( thisUsersCourseList.size() > 0))
+                                            {
+                                                if ( thisUsersCourseList.get(0).getItinerary() != null )
+                                                {
+                                                    Course thisCourse = thisUsersCourseList.get(0);
+                                                    thisCourse.setItinerary( itineraryRepository.findOneById( itineraryNumber ) );
+                                                    courseRepository.save( thisCourse );
+                                                }
+                                            }
+                                        }
+
                                 }
                             }
                         }
@@ -428,13 +467,67 @@ public class DataImporter
             Set set = excelContent.entrySet();
             List<String> currentRow;
 
-            for (Integer i : excelContent.keySet()) {
-                VicCourse vicCourse = new VicCourse();
+            for (Integer i : excelContent.keySet())
+            {
+                Course course = new Course();
                 currentRow = excelContent.get(i);
-                VicMyAppUser myAppUser = null;
-                for (int j = 0; j < currentRow.size(); j++) {
-                    String currentCell = currentRow.get(j);
+                MyAppUser myAppUser = null;
+                if ( ( i == 0) || ( i == 2)|| ( i == 4)|| ( i == 6) )
+                {
+                    for (int j = 0; j < currentRow.size(); j++) {
+                        String currentCell = currentRow.get(j);
+
+                        if ( ! currentCell.equals(""))
+                        {
+
+                            int commaPos = currentCell.indexOf(",");
+                            String lastName = null;
+                            try {
+                                lastName = currentCell.substring(0 , commaPos);
+                                String name = currentCell.substring(commaPos+2 , currentCell.length());
+                                List<MyAppUser> myAppUserList = myAppUserRepository.findByFirstNameAndLastName( name , lastName);
+                                if ( myAppUserList.size() == 0)
+                                {
+                                    System.out.println( "currentCell + " + currentCell );
+
+                                }
+                                else
+                                {
+                                    myAppUser = myAppUserList.get(0);
+                                    int row = (i/2) + 1;
+                                    int col = j + 1;
+                                    System.out.println( "row - " + row + " col - " + col );
+                                    List<Seat> seatList = seatRepository.findByRowNumberAndColNumber( row , col );
+                                    if ( seatList.size() > 0)
+                                    {
+                                        for (int k = 0; k < seatList.size() ; k++)
+                                        {
+                                            Seat seat = seatList.get(i);
+                                            myAppUser.setSeat (seat);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Seat seat = new Seat ();
+                                        seat.setRowNumber( row );
+                                        seat.setColNumber( col );
+                                        seat = seatRepository.save(seat);
+                                        myAppUser.setSeat (seat);
+                                    }
+
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                System.out.println("No comma - " + currentCell );
+                            }
+
+
+
+                        }
+                    }
                 }
+
             }
         }
         catch ( Exception e )

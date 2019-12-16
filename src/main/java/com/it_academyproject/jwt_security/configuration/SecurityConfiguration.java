@@ -1,10 +1,10 @@
 package com.it_academyproject.jwt_security.configuration;
 
-import com.it_academyproject.jwt_security.repository.MyAppUserRepository;
 import com.it_academyproject.jwt_security.security.AuthenticationSuccessHandlerImpl;
 import com.it_academyproject.jwt_security.security.JwtAuthenticationFilter;
 import com.it_academyproject.jwt_security.security.JwtAuthorizationFilter;
 import com.it_academyproject.jwt_security.security.MyUserDetailsService;
+import com.it_academyproject.repositories.MyAppUserRepository;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

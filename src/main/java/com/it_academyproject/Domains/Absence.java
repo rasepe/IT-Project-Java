@@ -1,5 +1,7 @@
 package com.it_academyproject.Domains;
 
+import org.assertj.core.internal.Dates;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.util.Date;
 
 @Entity
 public class Absence {
@@ -14,7 +17,7 @@ public class Absence {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)	
 	@Id
 	private int id;
-	private String dateMissing;
+	private Date dateMissing;
 	@ManyToOne (fetch = FetchType.EAGER)
 	@JoinColumn (name="student_id")
 	private MyAppUser userStudent;
@@ -22,7 +25,7 @@ public class Absence {
 	public Absence() {
 		
 	}
-	public Absence(int id, String dateMissing) {
+	public Absence(int id, Date dateMissing) {
 		
 		this.id = id;
 		this.dateMissing = dateMissing;
@@ -36,12 +39,20 @@ public class Absence {
 		this.id = id;
 	}
 
-	public String getDateMissing() {
+	public Date getDateMissing() {
 		return dateMissing;
 	}
 
-	public void setDateMissing(String dateMissing) {
+	public void setDateMissing(Date dateMissing) {
 		this.dateMissing = dateMissing;
+	}
+
+	public MyAppUser getUserStudent() {
+		return userStudent;
+	}
+
+	public void setUserStudent(MyAppUser userStudent) {
+		this.userStudent = userStudent;
 	}
 
 	@Override

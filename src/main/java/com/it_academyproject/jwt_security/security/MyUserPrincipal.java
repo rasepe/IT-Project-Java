@@ -1,6 +1,6 @@
 package com.it_academyproject.jwt_security.security;
 
-import com.it_academyproject.Domains.VicMyAppUser;
+import com.it_academyproject.Domains.MyAppUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,9 +11,9 @@ import java.util.List;
 
 public class MyUserPrincipal implements UserDetails
 {
-    private VicMyAppUser myAppUser;
+    private MyAppUser myAppUser;
 
-    public MyUserPrincipal(VicMyAppUser user)
+    public MyUserPrincipal(MyAppUser user)
     {
         this.myAppUser = user;
     }
@@ -59,7 +59,7 @@ public class MyUserPrincipal implements UserDetails
 
     //
 
-    public VicMyAppUser getUser() {
+    public MyAppUser getUser() {
         return myAppUser;
     }
 }

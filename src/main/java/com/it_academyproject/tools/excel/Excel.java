@@ -18,7 +18,9 @@ public class Excel
     //open the excel
     public void openFile ( String fileLocation ) throws IOException, BiffException
     {
-        workbook = Workbook.getWorkbook(new File(fileLocation));
+        WorkbookSettings ws = new WorkbookSettings();
+        ws.setEncoding("UTF-8");
+        workbook = Workbook.getWorkbook(new File(fileLocation) , ws);
     }
     public Map<Integer, List<String>> readJExcelContent(int sheetNumber ) throws IOException, BiffException
     {
@@ -26,9 +28,11 @@ public class Excel
         Sheet sheet = workbook.getSheet(sheetNumber);
         int rows = sheet.getRows();
         int columns = sheet.getColumns();
-        for (int i = 0; i < rows; i++) {
+        for (int i = 0; i < rows; i++)
+        {
             data.put(i, new ArrayList<String>());
-            for (int j = 0; j < columns; j++) {
+            for (int j = 0; j < columns; j++)
+            {
                 data.get(i).add(sheet.getCell(j, i).getContents());
             }
         }

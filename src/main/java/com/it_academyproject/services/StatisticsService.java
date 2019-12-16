@@ -1,12 +1,14 @@
 package com.it_academyproject.services;
 
-import com.it_academyproject.Domains.VicCourse;
-import com.it_academyproject.Domains.VicMyAppUser;
+import com.it_academyproject.Domains.Course;
+import com.it_academyproject.Domains.MyAppUser;
 import com.it_academyproject.Exceptions.UserNotFoundException;
-import com.it_academyproject.repositories.VicAbsenceRepository;
-import com.it_academyproject.repositories.VicCourseRepository;
-import com.it_academyproject.repositories.VicItineraryRepository;
-import com.it_academyproject.repositories.VicMyAppUserRepository;
+
+import com.it_academyproject.repositories.AbsenceRepository;
+import com.it_academyproject.repositories.ItineraryRepository;
+import com.it_academyproject.repositories.CourseRepository;
+import com.it_academyproject.repositories.MyAppUserRepository;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,13 +21,13 @@ public class StatisticsService
 {
 
     @Autowired
-    VicAbsenceRepository absenceRepository;
+    AbsenceRepository absenceRepository;
     @Autowired
-    VicCourseRepository courseRepository;
+    CourseRepository courseRepository;
     @Autowired
-    VicItineraryRepository itineraryRepository;
+    ItineraryRepository itineraryRepository;
     @Autowired
-    VicMyAppUserRepository myAppUserRepository;
+    MyAppUserRepository myAppUserRepository;
 
 
     public JSONObject perItinerary() throws Exception
@@ -48,17 +50,17 @@ public class StatisticsService
         JSONObject sendData = new JSONObject();
         return sendData;
     }
-    public List<VicMyAppUser> getAllActiveStudents ( )
+    public List<MyAppUser> getAllActiveStudents ( )
     {
 
-        List<VicCourse> vicCourseList = courseRepository.findByEndDate( null );
-        List<VicMyAppUser> activeStudents = new ArrayList<>();
-        VicCourse vicCourse;
-        VicMyAppUser myAppUser;
-        for (int i = 0; i < vicCourseList.size() ; i++)
+        List<Course> courseList = courseRepository.findByEndDate( null );
+        List<MyAppUser> activeStudents = new ArrayList<>();
+        Course course;
+        MyAppUser myAppUser;
+        for (int i = 0; i < courseList.size() ; i++)
         {
-            vicCourse = vicCourseList.get(i);
-            VicMyAppUser student = vicCourse.getUserStudent();
+            course = courseList.get(i);
+            MyAppUser student = course.getUserStudent();
             myAppUser = myAppUserRepository.findOneById( student.getId() );
             if ( myAppUser != null )
             {

@@ -1,11 +1,11 @@
 package com.it_academyproject.jwt_security.service;
 
-import com.it_academyproject.Domains.VicMyAppUser;
+import com.it_academyproject.Domains.MyAppUser;
 import com.it_academyproject.Exceptions.EmptyFieldException;
 import com.it_academyproject.Exceptions.InvalidFormatException;
 import com.it_academyproject.Exceptions.InvalidToken;
 import com.it_academyproject.Exceptions.UserNotFoundException;
-import com.it_academyproject.jwt_security.repository.MyAppUserRepository;
+import com.it_academyproject.repositories.MyAppUserRepository;
 import com.it_academyproject.tools.email.EmailObj;
 import com.it_academyproject.jwt_security.model.PasswordResetToken;
 import com.it_academyproject.jwt_security.repository.PasswordResetTokenRepository;
@@ -39,7 +39,7 @@ public class PasswordResetService
         // 3. add to the db
         // 4. send an email to the user with the link and the token.
 
-        VicMyAppUser myAppUser = myAppUserRepository.findByEmail( email );
+        MyAppUser myAppUser = myAppUserRepository.findByEmail( email );
         if ( myAppUser != null )
         {
             //check if the user has a token, if it does remove the old and generate a new one.
@@ -135,11 +135,11 @@ public class PasswordResetService
                 if ( expirationDate.compareTo(now) > 0 )
                 {
                     //it is valid - Look for the user
-                    Optional<VicMyAppUser> optional = myAppUserRepository.findById(pwrt.getMyAppUser().getId());
+                    Optional<MyAppUser> optional = myAppUserRepository.findById(pwrt.getMyAppUser().getId());
                     if ( optional.isPresent() )
                     {
                         //user found
-                        VicMyAppUser myAppUser = optional.get();
+                        MyAppUser myAppUser = optional.get();
                         //check email
                         if ( email.equals(myAppUser.getEmail()))
                         {

@@ -1,13 +1,10 @@
-package com.it_academyproject.jwt_security.controller;
-import com.it_academyproject.jwt_security.repository.MyAppUserRepository;
-import com.it_academyproject.repositories.VicAbsenceRepository;
-import com.it_academyproject.repositories.VicCourseRepository;
-import com.it_academyproject.tools.dataImporter.DataImporter;
+package com.it_academyproject.controllers;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.it_academyproject.tools.dataImporter.DataImporter;
 
 
 @RestController
@@ -24,7 +21,10 @@ public class PublicController
         JSONObject errorData = new JSONObject();
         dataImporter.manualCreation();
         dataImporter.importAlumnesActius();
-        errorData.put( "Exercises" , dataImporter.importEjerciciosporalumno() );
+        errorData.put( "Exercises" , dataImporter.importEjerciciosporalumno( 0 , 1) );
+        errorData.put( "Exercises" , dataImporter.importEjerciciosporalumno( 1 , 2) );
+        errorData.put( "Exercises" , dataImporter.importEjerciciosporalumno( 2 , 3) );
+        errorData.put( "Exercises" , dataImporter.importEjerciciosporalumno( 3 , 4) );
         dataImporter.importTaules();
 
         return errorData.toString();

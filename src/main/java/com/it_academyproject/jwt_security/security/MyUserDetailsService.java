@@ -1,7 +1,7 @@
 package com.it_academyproject.jwt_security.security;
 
-import com.it_academyproject.Domains.VicMyAppUser;
-import com.it_academyproject.jwt_security.repository.MyAppUserRepository;
+import com.it_academyproject.Domains.MyAppUser;
+import com.it_academyproject.repositories.MyAppUserRepository;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -43,7 +43,7 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email)
     {
-        VicMyAppUser myAppUser = myAppUserRepository.findByEmail(email);
+        MyAppUser myAppUser = myAppUserRepository.findByEmail(email);
         if (myAppUser == null) {
             throw new UsernameNotFoundException(email);
         }

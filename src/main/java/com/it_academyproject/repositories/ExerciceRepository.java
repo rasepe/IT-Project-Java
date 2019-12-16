@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @Repository
-public interface VicExerciceRepository extends JpaRepository<Exercice, Integer>
+public interface ExerciceRepository extends JpaRepository<Exercice, Integer>
 {
     List<Exercice> findAllByNameAndItinerary (String name , Itinerary itinerary);
     Exercice findOneById ( Integer exerciceId );

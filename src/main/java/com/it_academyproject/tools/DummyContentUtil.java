@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import com.it_academyproject.Domains.VicMyAppUser;
+import com.it_academyproject.Domains.MyAppUser;
 import com.it_academyproject.Exceptions.EmptyFieldException;
-import com.it_academyproject.jwt_security.repository.MyAppUserRepository;
+import com.it_academyproject.repositories.MyAppUserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -18,15 +18,15 @@ public class DummyContentUtil
     {
         this.myAppUserRepository = myAppUserRepository;
     }
-    public List<VicMyAppUser> generateDummyUsers()
+    public List<MyAppUser> generateDummyUsers()
     {
-        List<VicMyAppUser> users = new ArrayList<>();
+        List<MyAppUser> users = new ArrayList<>();
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         try {
-            users.add(new VicMyAppUser("vickycampo@gmail.com", passwordEncoder.encode("123456")));
+            users.add(new MyAppUser("vickycampo@gmail.com", passwordEncoder.encode("123456")));
 
 
-            VicMyAppUser myAppUser;
+            MyAppUser myAppUser;
             for (int i = 0; i < users.size() ; i++)
             {
                 myAppUser = myAppUserRepository.findByEmail(users.get(i).getEmail());
