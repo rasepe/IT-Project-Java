@@ -21,6 +21,7 @@ public class Course {
 	private Date beginDate;
 	private Date endDate;
 	
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="student_id")
 	private MyAppUser userStudent;

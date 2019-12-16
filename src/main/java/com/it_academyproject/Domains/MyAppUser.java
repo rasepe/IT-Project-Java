@@ -17,7 +17,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.it_academyproject.Exceptions.EmptyFieldException;
+import com.it_academyproject.Tools.View;
 
 
 
@@ -27,13 +29,27 @@ public class MyAppUser {
 	
 	//@GeneratedValue(strategy=GenerationType.IDENTITY)	
 	@Id
+	@JsonView(View.Summary.class)
 	private String id;
+	
+	@JsonView(View.Summary.class)
 	private String firstName;
+	
+	@JsonView(View.Summary.class)
 	private String lastName;
+	
+	@JsonView(View.Summary.class)
 	private String idDocument;
+	
+	@JsonView(View.SummaryWithOthers.class)
 	private String email;
+	
+	@JsonView(View.SummaryWithOthers.class)
 	private byte gender;
+	
+	@JsonView(View.SummaryWithOthers.class)
 	private String portrait;
+	
 	private String password;
 	private boolean enabled;
 	private Date lastLogin;
@@ -91,9 +107,9 @@ public class MyAppUser {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(UUID id) {
 		UUID uuid = UUID.randomUUID();
-		this.id = uuid.toString();
+		this.id = id.toString();
 	}
 
 	public String getFirstName() {
@@ -176,11 +192,16 @@ public class MyAppUser {
 		this.lastLogin = lastLogin;
 	}
 
-	@Override
-	public String toString() {
+	
+
+
+/*	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", idDocument=" + idDocument
 				+ ", email=" + email + ", gender=" + gender + ", portrait=" + portrait + ", password=" + password
 				+ ", enabled=" + enabled + "]";
-	}	
+	}	*/
+	
+	
+	
 
 }
