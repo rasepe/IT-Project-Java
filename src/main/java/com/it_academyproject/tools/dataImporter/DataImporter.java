@@ -178,7 +178,7 @@ public class DataImporter
             for (Integer i : excelContent.keySet())
             {
                 //create the objects that will be placed in the data base
-               MyAppUser myAppUser = new MyAppUser();
+                MyAppUser myAppUser = new MyAppUser();
                 Course course = new Course();
                 currentRow = excelContent.get(i);
 

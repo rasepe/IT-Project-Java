@@ -19,7 +19,7 @@ public class Excel
     public void openFile ( String fileLocation ) throws IOException, BiffException
     {
         WorkbookSettings ws = new WorkbookSettings();
-        ws.setEncoding("UTF-8");
+        ws.setEncoding("Cp1252");
         workbook = Workbook.getWorkbook(new File(fileLocation) , ws);
     }
     public Map<Integer, List<String>> readJExcelContent(int sheetNumber ) throws IOException, BiffException
@@ -34,6 +34,7 @@ public class Excel
             for (int j = 0; j < columns; j++)
             {
                 data.get(i).add(sheet.getCell(j, i).getContents());
+                //System.out.println( sheet.getCell(j , i ).);
             }
         }
         return data;
