@@ -1,8 +1,8 @@
 package com.it_academyproject.jwt_security.security;
 
-import com.it_academyproject.Domains.MyAppUser;
-import com.it_academyproject.Exceptions.EmptyFieldException;
-import com.it_academyproject.Exceptions.WrongEmailPassword;
+import com.it_academyproject.domains.MyAppUser;
+import com.it_academyproject.exceptions.EmptyFieldException;
+import com.it_academyproject.exceptions.WrongEmailPassword;
 import com.it_academyproject.jwt_security.constants.SecurityConstants;
 import com.it_academyproject.repositories.MyAppUserRepository;
 import io.jsonwebtoken.Jwts;
@@ -62,6 +62,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
                 BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
                 MyAppUser myAppUser = myAppUserRepository.findByEmail(loginData.getEmail());
+                System.out.println("65 - ");
+                System.out.println(loginData.getPassword());
+                System.out.println(myAppUser.getPassword());
                 if ( passwordEncoder.matches(loginData.getPassword() , myAppUser.getPassword() ))
                 {
                     List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
@@ -134,10 +137,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .setAudience(SecurityConstants.TOKEN_AUDIENCE)
                 .setSubject(userDetails.getUsername())
                 /*.setExpiration(new Date(System.currentTimeMillis() + 864000000))*/
-                .setExpiration(new Date(System.currentTimeMillis() + 86400))
+                .setExpiration(new Date(System.currentTimeMillis() + (8640000)))
                 .claim("rol", roles)
                 .compact();
-        System.out.println("The expiration date of the token is: " + (new Date(System.currentTimeMillis() + 86400).toString()));
+        System.out.println("The expiration date of the token is: " + (new Date(System.currentTimeMillis() + (8640000)).toString()));
 
         response.addHeader(SecurityConstants.TOKEN_HEADER, SecurityConstants.TOKEN_PREFIX + token);
     }

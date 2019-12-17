@@ -1,8 +1,8 @@
 package com.it_academyproject.services;
 
-import com.it_academyproject.Domains.Course;
-import com.it_academyproject.Domains.MyAppUser;
-import com.it_academyproject.Exceptions.UserNotFoundException;
+import com.it_academyproject.domains.Course;
+import com.it_academyproject.domains.MyAppUser;
+import com.it_academyproject.exceptions.UserNotFoundException;
 
 import com.it_academyproject.repositories.AbsenceRepository;
 import com.it_academyproject.repositories.ItineraryRepository;

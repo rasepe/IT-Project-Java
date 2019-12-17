@@ -1,8 +1,8 @@
 package com.it_academyproject.repositories;
 
 
-import com.it_academyproject.Domains.Exercice;
-import com.it_academyproject.Domains.Itinerary;
+import com.it_academyproject.domains.Exercice;
+import com.it_academyproject.domains.Itinerary;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

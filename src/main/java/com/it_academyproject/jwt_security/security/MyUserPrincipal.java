@@ -1,6 +1,6 @@
 package com.it_academyproject.jwt_security.security;
 
-import com.it_academyproject.Domains.MyAppUser;
+import com.it_academyproject.domains.MyAppUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

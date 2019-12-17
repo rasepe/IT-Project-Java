@@ -1,4 +1,4 @@
-package com.it_academyproject.Domains;
+package com.it_academyproject.domains;
 
 
 import java.util.List;

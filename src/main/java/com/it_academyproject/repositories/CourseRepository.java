@@ -1,9 +1,9 @@
 package com.it_academyproject.repositories;
 
-import com.it_academyproject.Domains.MyAppUser;
+import com.it_academyproject.domains.MyAppUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.it_academyproject.Domains.Course;
+import com.it_academyproject.domains.Course;
 
 import java.util.Date;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.it_academyproject.Exceptions;
+package com.it_academyproject.exceptions;
 
 
 public class InvalidToken extends Exception

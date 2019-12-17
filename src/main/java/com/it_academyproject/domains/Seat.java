@@ -1,7 +1,4 @@
-package com.it_academyproject.Domains;
-
-import com.fasterxml.jackson.annotation.JsonView;
-import com.it_academyproject.tools.View;
+package com.it_academyproject.domains;
 
 import javax.persistence.*;
 import java.util.List;

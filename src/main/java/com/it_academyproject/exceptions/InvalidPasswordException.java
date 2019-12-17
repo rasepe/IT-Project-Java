@@ -1,4 +1,4 @@
-package com.it_academyproject.Exceptions;
+package com.it_academyproject.exceptions;
 
 public final class InvalidPasswordException extends RuntimeException {
 

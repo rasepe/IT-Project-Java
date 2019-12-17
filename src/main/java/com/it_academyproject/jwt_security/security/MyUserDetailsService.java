@@ -1,6 +1,6 @@
 package com.it_academyproject.jwt_security.security;
 
-import com.it_academyproject.Domains.MyAppUser;
+import com.it_academyproject.domains.MyAppUser;
 import com.it_academyproject.repositories.MyAppUserRepository;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;

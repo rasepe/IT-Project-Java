@@ -1,7 +1,7 @@
 package com.it_academyproject.repositories;
 
-import com.it_academyproject.Domains.Absence;
-import com.it_academyproject.Domains.MyAppUser;
+import com.it_academyproject.domains.Absence;
+import com.it_academyproject.domains.MyAppUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import com.it_academyproject.Domains.MyAppUser;
-import com.it_academyproject.Exceptions.EmptyFieldException;
+import com.it_academyproject.domains.MyAppUser;
+import com.it_academyproject.exceptions.EmptyFieldException;
 import com.it_academyproject.repositories.MyAppUserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

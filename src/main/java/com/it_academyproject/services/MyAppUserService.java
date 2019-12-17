@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.it_academyproject.Domains.MyAppUser;
+import com.it_academyproject.domains.MyAppUser;
 import com.it_academyproject.repositories.MyAppUserRepository;
 
 @Service

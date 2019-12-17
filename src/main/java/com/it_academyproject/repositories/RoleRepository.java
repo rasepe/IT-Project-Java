@@ -1,7 +1,7 @@
 package com.it_academyproject.repositories;
 
 
-import com.it_academyproject.Domains.Role;
+import com.it_academyproject.domains.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

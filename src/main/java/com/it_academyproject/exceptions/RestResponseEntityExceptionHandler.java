@@ -1,4 +1,4 @@
-package com.it_academyproject.Exceptions;
+package com.it_academyproject.exceptions;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

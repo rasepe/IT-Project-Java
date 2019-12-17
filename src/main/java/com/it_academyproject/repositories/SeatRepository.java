@@ -1,6 +1,6 @@
 package com.it_academyproject.repositories;
 
-import com.it_academyproject.Domains.Seat;
+import com.it_academyproject.domains.Seat;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

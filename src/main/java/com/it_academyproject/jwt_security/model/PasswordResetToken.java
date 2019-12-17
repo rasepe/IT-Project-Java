@@ -1,6 +1,6 @@
 package com.it_academyproject.jwt_security.model;
 
-import com.it_academyproject.Domains.MyAppUser;
+import com.it_academyproject.domains.MyAppUser;
 
 import javax.persistence.*;
 import java.util.Calendar;

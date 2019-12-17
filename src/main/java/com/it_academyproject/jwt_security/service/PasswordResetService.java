@@ -1,10 +1,10 @@
 package com.it_academyproject.jwt_security.service;
 
-import com.it_academyproject.Domains.MyAppUser;
-import com.it_academyproject.Exceptions.EmptyFieldException;
-import com.it_academyproject.Exceptions.InvalidFormatException;
-import com.it_academyproject.Exceptions.InvalidToken;
-import com.it_academyproject.Exceptions.UserNotFoundException;
+import com.it_academyproject.domains.MyAppUser;
+import com.it_academyproject.exceptions.EmptyFieldException;
+import com.it_academyproject.exceptions.InvalidFormatException;
+import com.it_academyproject.exceptions.InvalidToken;
+import com.it_academyproject.exceptions.UserNotFoundException;
 import com.it_academyproject.repositories.MyAppUserRepository;
 import com.it_academyproject.tools.email.EmailObj;
 import com.it_academyproject.jwt_security.model.PasswordResetToken;

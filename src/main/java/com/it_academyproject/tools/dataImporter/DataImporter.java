@@ -1,6 +1,6 @@
 package com.it_academyproject.tools.dataImporter;
 
-import com.it_academyproject.Domains.*;
+import com.it_academyproject.domains.*;
 
 import com.it_academyproject.repositories.*;
 
@@ -10,6 +10,7 @@ import org.apache.poi.ss.usermodel.DateUtil;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.Paths;
@@ -37,7 +38,7 @@ public class DataImporter
     SeatRepository seatRepository;
 
 
-    public boolean manualCreation ()
+    public Map <Integer , String> manualCreation ()
     {
         //role
         Map<Integer , String >rolesList = new HashMap<>();
@@ -81,8 +82,78 @@ public class DataImporter
             statusExercice.setName( exStatusList.get( i ) );
             statusExerciceRepository.save( statusExercice );
         }
+        //Adding teachers to MyAppUsers
+        List<MyAppUser> users = new ArrayList<>();
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        Role teachersRol = roleRepository.findOneById(2);
+        Role adminRol = roleRepository.findOneById(3);
 
-        return false;
+        users.add( new MyAppUser( "Testing", "IT - Department", "12345678X", "it@academy.com", 'M',
+                "", passwordEncoder.encode("123456"), true, teachersRol) );
+
+        users.add( new MyAppUser( "Ismael", "Kale", "", "", 'M',
+                "", passwordEncoder.encode(""), true, teachersRol) );
+
+        users.add( new MyAppUser( "Jake", "Patrulla", "", "", 'M',
+                "", passwordEncoder.encode(""), true, teachersRol) );
+
+        users.add( new MyAppUser( "José", "José", "", "", 'M',
+                "", passwordEncoder.encode(""), true, teachersRol) );
+
+        users.add( new MyAppUser( "Rubén", "Rubén", "", "", 'M',
+                "", passwordEncoder.encode(""), true, teachersRol) );
+
+        users.add( new MyAppUser( "Martí", "", "Rodríguez Mestre", "", 'M',
+                "", passwordEncoder.encode(""), true, adminRol) );
+
+        users.add( new MyAppUser( "Marc", "Vera", "", "", 'M',
+                "", passwordEncoder.encode(""), true, adminRol) );
+
+        Map <Integer , String> teacherVSitinerary = new HashMap<>();
+        MyAppUser myAppUser;
+        for (int i = 0; i < users.size() ; i++)
+        {
+            List<MyAppUser> myAppUserList = myAppUserRepository.findByFirstNameAndLastName( users.get(i).getFirstName() , users.get(i).getLastName() );
+            if (myAppUserList.size() != 0)
+            {
+                if ( ! users.get(i).getPassword().equals(""))
+                {
+                    System.out.println(( myAppUserList.get(0).getFirstName()  + " - " + users.get(i).getFirstName() ));
+                    myAppUserList.get(0).setPassword(passwordEncoder.encode(users.get(i).getPassword()));
+                    users.set(i , myAppUserRepository.save( myAppUserList.get(0) ) );
+                }
+                else
+                {
+                    users.set(i , myAppUserList.get(0) );
+                }
+            }
+            else
+            {
+                users.get( i ).setId();
+                users.set(i , myAppUserRepository.save( users.get( i ) ) );
+            }
+            //return the the teacher and the itinerary for the exercises
+            /*itineraryList.put( 1 , "COMMON-BLOCK");
+            itineraryList.put( 2 , "FRONT-END");
+            itineraryList.put( 3 , "BACK-END - JAVA");
+            itineraryList.put( 4 , "BACK-END - .NET");*/
+            System.out.println( users.get(i).getFirstName() );
+            if ( users.get(i).getFirstName().equals("Ismael"))
+            {
+                teacherVSitinerary.put( 2 , users.get(i).getId() );
+            }
+            else if ( users.get(i).getFirstName().equals("Jake"))
+            {
+                teacherVSitinerary.put( 3 , users.get(i).getId() );
+            }
+            else if ( users.get(i).getFirstName().equals("José"))
+            {
+                teacherVSitinerary.put( 4 , users.get(i).getId() );
+            }
+        }
+
+
+        return teacherVSitinerary;
     }
 
     public boolean importAlumnesActius ()
@@ -269,11 +340,11 @@ public class DataImporter
         return true;
     }
 
-    public JSONObject importEjerciciosporalumno ( int sheetNumber , int itineraryNumber )
+    public JSONObject importEjerciciosporalumno ( int sheetNumber , int itineraryNumber , String teacherId )
     {
         List <String> NotFoundUser = new ArrayList<>();
-        Role role = roleRepository.findOneById ( 1 );
         Itinerary itinerary = itineraryRepository.findOneById ( 1 );
+        MyAppUser teacherUser = myAppUserRepository.findOneById( teacherId );
         try
         {
             System.out.println(Paths.get("").toAbsolutePath().toString());
@@ -397,7 +468,7 @@ public class DataImporter
                                 {
                                     userExercice = new UserExercice();
                                     userExercice.setComments("Imported Automatically");
-
+                                    userExercice.setUserTeacher( teacherUser );
                                     Date javaDate = null;
                                     try
                                     {
@@ -429,6 +500,7 @@ public class DataImporter
                                                 {
                                                     Course thisCourse = thisUsersCourseList.get(0);
                                                     thisCourse.setItinerary( itineraryRepository.findOneById( itineraryNumber ) );
+                                                    thisCourse.setUserTeacher( teacherUser );
                                                     courseRepository.save( thisCourse );
                                                 }
                                             }

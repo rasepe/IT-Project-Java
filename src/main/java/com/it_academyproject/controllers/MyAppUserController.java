@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.it_academyproject.services.MyAppUserService;
 import com.it_academyproject.tools.View;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.it_academyproject.Domains.MyAppUser;
+import com.it_academyproject.domains.MyAppUser;
 
 @RestController
 public class MyAppUserController {
