@@ -1,6 +1,9 @@
 package com.it_academyproject.domains;
 
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.it_academyproject.tools.View;
+
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -33,6 +36,7 @@ public class UserExercice {
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="student_id")
+	@JsonView({View.SummaryWithOthers.class , View.noShow.class})
 	private MyAppUser userStudent;
 	
 	@ManyToOne(fetch = FetchType.EAGER)

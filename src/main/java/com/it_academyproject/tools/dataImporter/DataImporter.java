@@ -489,6 +489,7 @@ public class DataImporter
                                     userExercice.setExercice( exercice );
                                     userExercice.setStatusExercice( statusExerciceRepository.findOneById( 5 ) );
                                     userExercice.setUserStudent( myAppUser );
+                                    userExercice.setUserTeacher( teacherUser );
                                     if ( userExercice.getDate_status() != null )
                                         userExerciceRepository.save ( userExercice );
                                         List<Course> thisUsersCourseList = courseRepository.findByUserStudent(myAppUser);
@@ -555,44 +556,52 @@ public class DataImporter
                             int commaPos = currentCell.indexOf(",");
                             String lastName = null;
                             try {
-                                lastName = currentCell.substring(0 , commaPos);
-                                String name = currentCell.substring(commaPos+2 , currentCell.length());
-                                List<MyAppUser> myAppUserList = myAppUserRepository.findByFirstNameAndLastName( name , lastName);
-                                if ( myAppUserList.size() == 0)
+                                if ( currentCell.indexOf(",") > 0 )
                                 {
-                                    System.out.println( "currentCell + " + currentCell );
-
-                                }
-                                else
-                                {
-                                    myAppUser = myAppUserList.get(0);
-                                    int row = (i/2) + 1;
-                                    int col = j + 1;
-                                    System.out.println( "row - " + row + " col - " + col );
-                                    List<Seat> seatList = seatRepository.findByRowNumberAndColNumber( row , col );
-                                    if ( seatList.size() > 0)
+                                    lastName = currentCell.substring(0 , commaPos);
+                                    String name = currentCell.substring(commaPos+2 , currentCell.length());
+                                    List<MyAppUser> myAppUserList = myAppUserRepository.findByFirstNameAndLastName( name , lastName);
+                                    if ( myAppUserList.size() == 0)
                                     {
-                                        for (int k = 0; k < seatList.size() ; k++)
-                                        {
-                                            Seat seat = seatList.get(i);
-                                            myAppUser.setSeat (seat);
-                                        }
+                                        System.out.println( "currentCell + " + currentCell );
+
                                     }
                                     else
                                     {
-                                        Seat seat = new Seat ();
-                                        seat.setRowNumber( row );
-                                        seat.setColNumber( col );
-                                        seat.setClassRoom( 1 );
-                                        seat = seatRepository.save(seat);
-                                        myAppUser.setSeat (seat);
-                                    }
+                                        myAppUser = myAppUserList.get(0);
+                                        int row = (i/2) + 1;
+                                        int col = j + 1;
+                                        System.out.println( "row - " + row + " col - " + col );
+                                        List<Seat> seatList = seatRepository.findByRowNumberAndColNumber( row , col );
+                                        if ( seatList.size() > 0)
+                                        {
+                                            for (int k = 0; k < seatList.size() ; k++)
+                                            {
+                                                Seat seat = seatList.get(k);
+                                                myAppUser.setSeat (seat);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Seat seat = new Seat ();
+                                            seat.setRowNumber( row );
+                                            seat.setColNumber( col );
+                                            seat.setClassRoom( 1 );
+                                            seat = seatRepository.save(seat);
+                                            myAppUser.setSeat (seat);
+                                        }
 
+                                    }
                                 }
+                                else
+                                {
+                                    System.out.println("No comma - " + currentCell );
+                                }
+
                             }
                             catch (Exception e)
                             {
-                                System.out.println("No comma - " + currentCell );
+                                System.out.println(e.getMessage());
                             }
 
 
