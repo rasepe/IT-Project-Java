@@ -583,6 +583,7 @@ public class DataImporter
                                         Seat seat = new Seat ();
                                         seat.setRowNumber( row );
                                         seat.setColNumber( col );
+                                        seat.setClassRoom( 1 );
                                         seat = seatRepository.save(seat);
                                         myAppUser.setSeat (seat);
                                     }
