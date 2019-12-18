@@ -11,6 +11,7 @@ public class Seat
     private int id;
     private int rowNumber;
     private int colNumber;
+    private int classRoom;
 
     @OneToMany
     private List<MyAppUser> myAppUser;
@@ -45,5 +46,13 @@ public class Seat
 
     public void setMyAppUser(List<MyAppUser> myAppUser) {
         this.myAppUser = myAppUser;
+    }
+
+    public int getClassRoom() {
+        return classRoom;
+    }
+
+    public void setClassRoom(int classRoom) {
+        this.classRoom = classRoom;
     }
 }
