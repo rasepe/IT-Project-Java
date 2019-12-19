@@ -11,8 +11,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @SpringBootApplication
 @ComponentScan(basePackages={"com.it_academyproject" , "com.it_academyproject.controllers", "com.it_academyproject.jwt_security"})
-@EntityScan(basePackages = {"com.it_academyproject.Domains" , "com.it_academyproject.jwt_security.model"} )
-@EnableJpaRepositories(basePackages = {"com.it_academyproject.Repositories" , "com.it_academyproject.jwt_security.repository"})
+@EntityScan(basePackages = {"com.it_academyproject.domains" , "com.it_academyproject.jwt_security.model"} )
+@EnableJpaRepositories(basePackages = {"com.it_academyproject.repositories" , "com.it_academyproject.jwt_security.repository"})
 @EnableWebMvc
 @Import(SecurityConfiguration.class)
 public class ItProjectServerApplication {
