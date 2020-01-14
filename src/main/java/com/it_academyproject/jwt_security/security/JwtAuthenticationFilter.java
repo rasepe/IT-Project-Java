@@ -2,6 +2,7 @@ package com.it_academyproject.jwt_security.security;
 
 import com.it_academyproject.domains.MyAppUser;
 import com.it_academyproject.exceptions.EmptyFieldException;
+import com.it_academyproject.exceptions.UserNotEnabled;
 import com.it_academyproject.exceptions.WrongEmailPassword;
 import com.it_academyproject.jwt_security.constants.SecurityConstants;
 import com.it_academyproject.repositories.MyAppUserRepository;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -62,20 +64,26 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
                 BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
                 MyAppUser myAppUser = myAppUserRepository.findByEmail(loginData.getEmail());
-                System.out.println("65 - ");
-                System.out.println(loginData.getPassword());
-                System.out.println(myAppUser.getPassword());
+
                 if ( passwordEncoder.matches(loginData.getPassword() , myAppUser.getPassword() ))
                 {
                     List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
                     Authentication authenticationToken = new UsernamePasswordAuthenticationToken(loginData.getEmail(), loginData.getPassword(), grantedAuthorityList );
 
-                    return authenticationManager.authenticate(authenticationToken);
+                    try
+                    {
+                        return authenticationManager.authenticate(authenticationToken);
+                    }
+                    catch ( AuthenticationException e )
+                    {
+                        e.printStackTrace();
+                        throw ( new UserNotEnabled(loginData.getEmail()));
+                    }
                 }
                 else
                 {
                     //double check on the user and password.
-                    throw (new WrongEmailPassword("Wrong Email or Password."));
+                    throw ( new WrongEmailPassword() );
                 }
             }
             else if ( !(loginDataJson.has("email")) || (loginDataJson.getString("email").equals("")))
@@ -96,6 +104,19 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 response.getWriter().flush();
                 response.getWriter().close();
             } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        catch (UserNotEnabled e )
+        {
+            response.setStatus(401);
+            try {
+                response.getWriter().write(e.getLocalizedMessage());
+                response.getWriter().flush();
+                response.getWriter().close();
+            }
+            catch (IOException ex)
+            {
                 ex.printStackTrace();
             }
         }
