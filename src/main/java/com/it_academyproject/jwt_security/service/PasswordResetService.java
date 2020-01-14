@@ -1,10 +1,7 @@
 package com.it_academyproject.jwt_security.service;
 
 import com.it_academyproject.domains.MyAppUser;
-import com.it_academyproject.exceptions.EmptyFieldException;
-import com.it_academyproject.exceptions.InvalidFormatException;
-import com.it_academyproject.exceptions.InvalidToken;
-import com.it_academyproject.exceptions.UserNotFoundException;
+import com.it_academyproject.exceptions.*;
 import com.it_academyproject.repositories.MyAppUserRepository;
 import com.it_academyproject.tools.email.EmailObj;
 import com.it_academyproject.jwt_security.model.PasswordResetToken;
@@ -40,7 +37,7 @@ public class PasswordResetService
         // 4. send an email to the user with the link and the token.
 
         MyAppUser myAppUser = myAppUserRepository.findByEmail( email );
-        if ( myAppUser != null )
+        if ( myAppUser != null && myAppUser.isEnabled() )
         {
             //check if the user has a token, if it does remove the old and generate a new one.
             List<PasswordResetToken> passwordResetTokenList = passwordResetTokenRepository.findByMyAppUserId( myAppUser.getId() );
@@ -91,9 +88,13 @@ public class PasswordResetService
                 return sendData;
             }
         }
-        else
+        else if ( myAppUser == null )
         {
             throw (new UserNotFoundException("The email does not belong to anyone."));
+        }
+        else if ( ! myAppUser.isEnabled() )
+        {
+            throw ( new UserNotEnabled( email ));
         }
 
         JSONObject sendData = new JSONObject();

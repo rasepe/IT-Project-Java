@@ -3,10 +3,10 @@ package com.it_academyproject.exceptions;
 public class WrongEmailPassword extends Exception
 {
     private String message;
-    public WrongEmailPassword( String message )
+    public WrongEmailPassword(  )
     {
-        super (message);
-        this.message = message;
+        super ("Wrong Email or Password.");
+        this.message = "Wrong Email or Password.";
     }
 
     @Override
