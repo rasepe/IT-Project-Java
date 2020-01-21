@@ -50,5 +50,13 @@ public class MyAppUserService {
 		return student;
 	}
 	
+	// Put - Edit by dni
+		public MyAppUser editGetByDni(String idDocument, MyAppUser student) {
+			
+			myAppUserRepository.save(student);
+			
+			 return student;
+		}
+	
 		
 }

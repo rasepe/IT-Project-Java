@@ -1,5 +1,8 @@
 package com.it_academyproject.services;
 
+import com.it_academyproject.domains.*;
+
+
 import com.it_academyproject.domains.Course;
 import com.it_academyproject.domains.MyAppUser;
 import com.it_academyproject.exceptions.UserNotFoundException;
@@ -40,11 +43,14 @@ public class StatisticsService
         JSONObject sendData = new JSONObject();
         return sendData;
     }
-    public JSONObject perAbsence( String body ) throws Exception
+   public List<Absence> absencesByIdDocument( String IdDocument ) 
     {
-        JSONObject sendData = new JSONObject();
-        return sendData;
+        return  absenceRepository.findByUserStudentIdDocument(IdDocument);
     }
+   
+
+   
+    
     public JSONObject finishInXdays( String body ) throws Exception
     {
         JSONObject sendData = new JSONObject();
@@ -72,6 +78,10 @@ public class StatisticsService
             }
         }
         return (activeStudents);
+    }
+    
+    public List<Absence> getAllAbsences(){
+    	return absenceRepository.findAll();
     }
 
 }

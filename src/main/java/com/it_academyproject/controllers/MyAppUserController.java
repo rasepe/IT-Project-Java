@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -53,6 +54,15 @@ public class MyAppUserController {
 		return myAppUserService.getById(student.getId());
 	}
 	
+	//Edit Student by Id document
+	@JsonView(View.Summary.class)
+	@PutMapping("api/students/dni")
+	public MyAppUser PutStudentByDni(@RequestBody MyAppUser student){
+		return myAppUserService.editGetByDni(student.getIdDocument(), student);
+	}
 		
+	
+	
+	
 
 }
