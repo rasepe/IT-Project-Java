@@ -16,7 +16,13 @@ public class Seat
     @OneToMany
     private List<MyAppUser> myAppUser;
 
-    public int getId() {
+    
+    
+    public Seat() {
+		
+	}
+
+	public int getId() {
         return id;
     }
 

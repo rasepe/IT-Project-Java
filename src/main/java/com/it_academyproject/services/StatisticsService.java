@@ -1,6 +1,8 @@
 package com.it_academyproject.services;
 
+import com.it_academyproject.domains.Absence;
 import com.it_academyproject.domains.Course;
+import com.it_academyproject.domains.Itinerary;
 import com.it_academyproject.domains.MyAppUser;
 import com.it_academyproject.exceptions.UserNotFoundException;
 
@@ -13,7 +15,11 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -30,25 +36,90 @@ public class StatisticsService
     MyAppUserRepository myAppUserRepository;
 
 
-    public JSONObject perItinerary() throws Exception
+    public String perItinerary() throws Exception
     {
-        JSONObject sendData = new JSONObject();
-        return sendData;
+        List<Itinerary> numberOfItinerary = new ArrayList<>();
+        itineraryRepository.findAll().forEach(numberOfItinerary::add);
+        List<String> listPerItinerary = new ArrayList<>();
+        for(int i=0;i<numberOfItinerary.size();i++) {
+        	Itinerary itinerary = numberOfItinerary.get(i);       	
+        	Integer numberPerItinerary = courseRepository.findByItinerary(itinerary).size();
+        	listPerItinerary.add(numberPerItinerary.toString());        	
+        }    
+        String peopleByItinerary = "";
+        for (int i=0;i<numberOfItinerary.size();i++) {
+        	peopleByItinerary = peopleByItinerary + numberOfItinerary.get(i).getName()+ " " + listPerItinerary.get(i) + " ";
+        }
+    	//JSONObject sendData = new JSONObject();
+        return peopleByItinerary;
     }
-    public JSONObject perGender() throws Exception
+    public String perGender() throws Exception
     {
-        JSONObject sendData = new JSONObject();
-        return sendData;
+        /*List<MyAppUser> numberOfUsers = new ArrayList<>();
+        myAppUserRepository.findAll().forEach(numberOfUsers::add);*/
+        List<Character> typeOfGender = new ArrayList<Character>();
+        	typeOfGender.add('M');
+        	typeOfGender.add('F');
+    	List<String> listNumberOfUsers = new ArrayList<>();
+        for(int i=0;i<typeOfGender.size();i++) {
+        	Character gender = typeOfGender.get(i);
+        	Integer numberPerUsers = myAppUserRepository.findByGender(gender).size();
+        	listNumberOfUsers.add(numberPerUsers.toString());
+        }
+        String peopleByGender = "";
+        for(int i=0;i<typeOfGender.size();i++) {
+        	peopleByGender = peopleByGender + typeOfGender.get(i) + " " + listNumberOfUsers.get(i) + " ";
+        }
+    	//JSONObject sendData = new JSONObject();
+        return peopleByGender;
     }
-    public JSONObject perAbsence( String body ) throws Exception
+    public Integer perAbsence() throws Exception
     {
-        JSONObject sendData = new JSONObject();
-        return sendData;
+    	List<Absence> absence = new ArrayList<>();
+    	absenceRepository.findAll().forEach(absence::add);
+    	//List<Absence> numberOfAbsence = new ArrayList<>();
+    	HashMap<String,Integer>numberOfAbsence = new HashMap<>();
+    	for(int i = 0; i < absence.size(); i++) {  
+            Integer counter = 0; 
+    		for(int j = i + 1; j < absence.size(); j++) {  
+                 if(absence.get(i).getUserStudent().getId().equals(absence.get(j).getUserStudent().getId())) {  
+                    counter++;  
+                 }
+             }
+    		if(counter>=8) {
+    			numberOfAbsence.put(absence.get(i).getUserStudent().getId(), counter);
+    		}
+    	}
+    	Integer numberOfAbsencePerStudent = numberOfAbsence.size();
+    	
+        //JSONObject sendData = new JSONObject();
+        return numberOfAbsencePerStudent;
     }
-    public JSONObject finishInXdays( String body ) throws Exception
+    public Integer finishInXdays() throws Exception
     {
-        JSONObject sendData = new JSONObject();
-        return sendData;
+        List<Course> finishInXDays = new ArrayList<>();
+        courseRepository.findAll().forEach(finishInXDays::add);
+        Date currentDate = Calendar.getInstance().getTime();
+        /*Calendar cal = Calendar.getInstance();        
+        for(Integer i=1;i<15;i++) {
+        	cal.setTime(currentDate);
+        	cal.add(Calendar.DATE,i);
+	        courseRepository.findByEndDate(cal.getTime()).forEach(finishInXDays::add);
+        }
+    	Integer numberOfPeopleThatFinishInXDays = finishInXDays.size();*/
+        Calendar comparatorDate = Calendar.getInstance();
+        comparatorDate.setTime(currentDate);
+        comparatorDate.add(Calendar.DATE, 14);
+        Date comparatorDate1 = comparatorDate.getTime();
+        Integer counter=0;
+        for(int i=0;i<finishInXDays.size();i++) {
+        	if (finishInXDays.get(i).getEndDate().compareTo(comparatorDate1)<=14) {
+        		counter++;
+        	}
+        }
+    	
+    	//JSONObject sendData = new JSONObject();
+        return counter;
     }
     public List<MyAppUser> getAllActiveStudents ( )
     {
