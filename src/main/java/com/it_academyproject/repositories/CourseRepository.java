@@ -1,3 +1,4 @@
+
 package com.it_academyproject.repositories;
 
 import com.it_academyproject.domains.Itinerary;

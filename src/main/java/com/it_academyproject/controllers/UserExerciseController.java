@@ -1,3 +1,4 @@
+
 package com.it_academyproject.controllers;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -59,3 +60,4 @@ public class UserExerciseController
         }
     }
 }
+
