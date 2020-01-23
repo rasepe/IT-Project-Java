@@ -220,3 +220,21 @@ target/surefire-reports/2019-12-19T21-19-43_516.dumpstream
 src/main/java/com/it_academyproject/controllers/DataImportController.java
 src/main/java/com/it_academyproject/ItProjectServerApplication.java
 exportToHTML/index.html
+/target/
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/

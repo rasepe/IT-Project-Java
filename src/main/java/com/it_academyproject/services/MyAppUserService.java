@@ -1,3 +1,4 @@
+
 package com.it_academyproject.services;
 
 import java.util.ArrayList;
@@ -58,5 +59,4 @@ public class MyAppUserService {
 			 return student;
 		}
 	
-		
 }

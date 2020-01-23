@@ -118,7 +118,7 @@ public class DataImporter
             {
                 if ( ! users.get(i).getPassword().equals(""))
                 {
-                    System.out.println(( myAppUserList.get(0).getFirstName()  + " - " + users.get(i).getFirstName() ));
+                    //System.out.println(( myAppUserList.get(0).getFirstName()  + " - " + users.get(i).getFirstName() ));
                     myAppUserList.get(0).setPassword(passwordEncoder.encode(users.get(i).getPassword()));
                     users.set(i , myAppUserRepository.save( myAppUserList.get(0) ) );
                 }
@@ -137,7 +137,7 @@ public class DataImporter
             itineraryList.put( 2 , "FRONT-END");
             itineraryList.put( 3 , "BACK-END - JAVA");
             itineraryList.put( 4 , "BACK-END - .NET");*/
-            System.out.println( users.get(i).getFirstName() );
+            //System.out.println( users.get(i).getFirstName() );
             if ( users.get(i).getFirstName().equals("Ismael"))
             {
                 teacherVSitinerary.put( 2 , users.get(i).getId() );
@@ -163,7 +163,7 @@ public class DataImporter
         Role role = roleRepository.findOneById ( 1 );
         Itinerary itinerary = itineraryRepository.findOneById ( 1 );
         try {
-            System.out.println(Paths.get("").toAbsolutePath().toString());
+            //System.out.println(Paths.get("").toAbsolutePath().toString());
             String fileLocation = "AlumnesActius.xls";
             Excel excel = new Excel();
             excel.openFile( fileLocation );
@@ -219,7 +219,7 @@ public class DataImporter
                                 }
                                 catch ( Exception e )
                                 {
-                                    System.out.println(e.getLocalizedMessage());
+                                    //System.out.println(e.getLocalizedMessage());
                                     //myAppUser.setAge( null );
                                 }
 
@@ -240,7 +240,7 @@ public class DataImporter
                                 }
                                 else
                                 {
-                                    System.out.println(currentCell + " - why is it empty");
+                                    //System.out.println(currentCell + " - why is it empty");
                                 }
 
                             }
@@ -312,7 +312,7 @@ public class DataImporter
                                             }
                                             else
                                             {
-                                                System.out.println(absenceList);
+                                               // System.out.println(absenceList);
                                             }
                                         }
                                     }
@@ -329,7 +329,7 @@ public class DataImporter
                 }
                 else
                 {
-                    System.out.print("Empty - ");
+                 //   System.out.print("Empty - ");
                 }
             }
         }
@@ -347,7 +347,7 @@ public class DataImporter
         MyAppUser teacherUser = myAppUserRepository.findOneById( teacherId );
         try
         {
-            System.out.println(Paths.get("").toAbsolutePath().toString());
+            //System.out.println(Paths.get("").toAbsolutePath().toString());
             String fileLocation = "Ejerciciosporalumno.xls";
             Excel excel = new Excel();
             excel.openFile(fileLocation);
@@ -427,7 +427,7 @@ public class DataImporter
                                         //check if it contains the last name
                                         for (int k = 0; k < myAppUserList1.size() ; k++)
                                         {
-                                            System.out.println( "357 - " + myAppUserList1.get(k).getFirstName() +  " " +  myAppUserList1.get(k).getLastName());
+                                            //System.out.println( "357 - " + myAppUserList1.get(k).getFirstName() +  " " +  myAppUserList1.get(k).getLastName());
                                             if ( myAppUserList1.get(k).getLastName().indexOf( lastName ) > 0 )
                                             {
                                                 //keeper contains last name
@@ -528,7 +528,7 @@ public class DataImporter
         Role role = roleRepository.findOneById ( 1 );
         Itinerary itinerary = itineraryRepository.findOneById ( 1 );
         try {
-            System.out.println(Paths.get("").toAbsolutePath().toString());
+            //System.out.println(Paths.get("").toAbsolutePath().toString());
             String fileLocation = "Taules.xls";
             Excel excel = new Excel();
             excel.openFile(fileLocation);
@@ -563,7 +563,7 @@ public class DataImporter
                                     List<MyAppUser> myAppUserList = myAppUserRepository.findByFirstNameAndLastName( name , lastName);
                                     if ( myAppUserList.size() == 0)
                                     {
-                                        System.out.println( "currentCell + " + currentCell );
+                                        //System.out.println( "currentCell + " + currentCell );
 
                                     }
                                     else
@@ -571,7 +571,7 @@ public class DataImporter
                                         myAppUser = myAppUserList.get(0);
                                         int row = (i/2) + 1;
                                         int col = j + 1;
-                                        System.out.println( "row - " + row + " col - " + col );
+                                        //System.out.println( "row - " + row + " col - " + col );
                                         List<Seat> seatList = seatRepository.findByRowNumberAndColNumber( row , col );
                                         if ( seatList.size() > 0)
                                         {
@@ -595,13 +595,13 @@ public class DataImporter
                                 }
                                 else
                                 {
-                                    System.out.println("No comma - " + currentCell );
+                                    //System.out.println("No comma - " + currentCell );
                                 }
 
                             }
                             catch (Exception e)
                             {
-                                System.out.println(e.getMessage());
+                                //System.out.println(e.getMessage());
                             }
 
 
@@ -636,14 +636,14 @@ public class DataImporter
             }
             catch (NumberFormatException e)
             {
-                System.out.println( stringDate);
-                System.out.println( e.getMessage() );
+                //System.out.println( stringDate);
+                //System.out.println( e.getMessage() );
                 return (null);
             }
             catch (StringIndexOutOfBoundsException e )
             {
-                System.out.println( stringDate);
-                System.out.println(e.getMessage());
+                //System.out.println( stringDate);
+                //System.out.println(e.getMessage());
             }
             stringDate = stringDate.substring(firstDivider +1, stringDate.length());
             int secondDivider = stringDate.indexOf("/");
@@ -654,7 +654,7 @@ public class DataImporter
                 year = Integer.parseInt( stringDate.substring(stringDate.length()-4 , stringDate.length()) );
             } catch (Exception e)
             {
-                System.out.println( stringDate);
+                //System.out.println( stringDate);
                 e.printStackTrace();
                 return ( null );
             }

@@ -1,6 +1,9 @@
+
 package com.it_academyproject.controllers;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.it_academyproject.services.UserExerciseService;
+import com.it_academyproject.tools.View;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -57,3 +60,4 @@ public class UserExerciseController
         }
     }
 }
+

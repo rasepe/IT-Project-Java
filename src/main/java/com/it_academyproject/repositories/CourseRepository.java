@@ -1,3 +1,4 @@
+
 package com.it_academyproject.repositories;
 
 import com.it_academyproject.domains.Itinerary;
@@ -15,5 +16,5 @@ public interface CourseRepository extends JpaRepository<Course, Integer>
     public List<Course> findByUserStudent(MyAppUser user );
     public List<Course> findByItinerary(Itinerary itinerary);
     public List<Course> findByItineraryAndEndDate( Itinerary itinerary , Date date);
-    public List<Course> findByUserStudentIdDocument (String IdDocument);
+
 }

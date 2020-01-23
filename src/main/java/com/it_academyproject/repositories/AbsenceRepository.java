@@ -13,4 +13,5 @@ public interface AbsenceRepository extends JpaRepository<Absence, Integer>
 {
     //student id y date missing
     List<Absence> findByUserStudentAndDateMissing (MyAppUser userStudent , Date dateMissing );
+   
 }
