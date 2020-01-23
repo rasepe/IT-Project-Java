@@ -79,8 +79,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
     @Override
     public void configure (WebSecurity web) throws Exception
     {
-        web.ignoring()
-                .antMatchers("/api/public/**" , "/api/get-reset-email/**" , "/api/save-new-password/**");
+    //Original web ignoring. Expose only /public for data importer, and get/save pass
+//    	web.ignoring()
+//                .antMatchers("/api/public/**" , "/api/get-reset-email/**" , "/api/save-new-password/**");
+    
+    //B-17 task. Add to web.ignoring controllers used during development to avoid asking for a Token during dev
+    	//Add endpoints when new controller is added in the API
+    	web.ignoring()
+        .antMatchers("/api/public/**" , "/api/get-reset-email/**" , "/api/save-new-password/**" , "/api/students/**" , "/api/statistics/**" , "/api/userExercise/**");
     }
 
 
@@ -143,3 +149,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
     }
 
 }
+
