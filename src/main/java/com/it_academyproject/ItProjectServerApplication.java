@@ -2,10 +2,6 @@ package com.it_academyproject;
 
 import com.it_academyproject.jwt_security.configuration.SecurityConfiguration;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Date;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,29 +23,10 @@ public class ItProjectServerApplication {
 		SpringApplication.run(ItProjectServerApplication.class, args);
 		
 		
-		try {
-		      File myObj = new File("LOG/log.txt");
-		      if (myObj.createNewFile()) {
-		        System.out.println("File created: " + myObj.getName());
-		        
-		        FileWriter myWriter = new FileWriter("LOG/log.txt",true);
-		        myWriter.write("===================================\n");
-		        myWriter.write(new Date()+": SERVER INIT\n");
-		        myWriter.write("===================================\n\n");
-
-		        myWriter.close();
-		        
-		        
-		      } else {
-		        System.out.println("File already exists.");
-		      }
-		    } catch (IOException e) {
-		      System.out.println("An error occurred.");
-		      e.printStackTrace();
-		    }
-	}
 		
 	}
+		
+}
 	
 	
 
