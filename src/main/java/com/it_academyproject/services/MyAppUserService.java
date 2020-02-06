@@ -1,4 +1,3 @@
-
 package com.it_academyproject.services;
 
 import java.util.ArrayList;
@@ -18,8 +17,9 @@ public class MyAppUserService {
 	MyAppUserRepository myAppUserRepository;
 	
 	//getAll
-	public List<MyAppUser> getAll(){
-		return myAppUserRepository.findAll();
+	public List<MyAppUser> getAllStudents(){
+		int studentRoleId=1;
+		return myAppUserRepository.findByRoleId(studentRoleId);
 	}
 
 	//get by name
@@ -58,5 +58,5 @@ public class MyAppUserService {
 			
 			 return student;
 		}
-	
+
 }

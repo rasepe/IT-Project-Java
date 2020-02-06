@@ -1,6 +1,8 @@
 package com.it_academyproject;
 
 import com.it_academyproject.jwt_security.configuration.SecurityConfiguration;
+
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -19,6 +21,12 @@ public class ItProjectServerApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ItProjectServerApplication.class, args);
+		
+		
+		
 	}
-
+		
 }
+	
+	
+

@@ -23,7 +23,7 @@ public class MyAppUserController {
 	@JsonView(View.Summary.class)
 	@GetMapping("/api/students")
 	public List<MyAppUser> getAllStudents(){
-		return myAppUserService.getAll();
+		return myAppUserService.getAllStudents();
 	}
 	
 	//Call students by name
