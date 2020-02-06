@@ -59,7 +59,7 @@ public class StatisticsController
     {
         try
         {
-            Integer sendData = statisticsService.perAbsence();
+            String sendData = statisticsService.perAbsence();
             return new ResponseEntity( sendData.toString() , HttpStatus.FOUND);
         }
         catch (Exception e)

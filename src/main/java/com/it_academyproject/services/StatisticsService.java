@@ -1,5 +1,6 @@
 package com.it_academyproject.services;
 
+import com.google.gson.Gson;
 import com.it_academyproject.domains.Absence;
 import com.it_academyproject.domains.Course;
 import com.it_academyproject.domains.Itinerary;
@@ -11,11 +12,9 @@ import com.it_academyproject.repositories.ItineraryRepository;
 import com.it_academyproject.repositories.CourseRepository;
 import com.it_academyproject.repositories.MyAppUserRepository;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -36,8 +35,8 @@ public class StatisticsService
     MyAppUserRepository myAppUserRepository;
 
 
-    public String perItinerary() throws Exception
-    {
+    
+    public String perItinerary() throws Exception{
         List<Itinerary> numberOfItinerary = new ArrayList<>();
         itineraryRepository.findAll().forEach(numberOfItinerary::add);
         List<String> listPerItinerary = new ArrayList<>();
@@ -45,18 +44,17 @@ public class StatisticsService
         	Itinerary itinerary = numberOfItinerary.get(i);       	
         	Integer numberPerItinerary = courseRepository.findByItinerary(itinerary).size();
         	listPerItinerary.add(numberPerItinerary.toString());        	
-        }    
-        String peopleByItinerary = "";
+        }        
+        ArrayList<ArrayList<String>> peopleByItinerary = new ArrayList<ArrayList<String>>();
         for (int i=0;i<numberOfItinerary.size();i++) {
-        	peopleByItinerary = peopleByItinerary + numberOfItinerary.get(i).getName()+ " " + listPerItinerary.get(i) + " ";
+        	peopleByItinerary.add(peopleByItineraryMethod(numberOfItinerary.get(i).getName(),listPerItinerary.get(i)));
         }
-    	//JSONObject sendData = new JSONObject();
-        return peopleByItinerary;
+        Gson Json= new Gson();
+        String sendData = Json.toJson(peopleByItinerary);
+    	return sendData;
     }
-    public String perGender() throws Exception
-    {
-        /*List<MyAppUser> numberOfUsers = new ArrayList<>();
-        myAppUserRepository.findAll().forEach(numberOfUsers::add);*/
+    
+    public String perGender() throws Exception {
         List<Character> typeOfGender = new ArrayList<Character>();
         	typeOfGender.add('M');
         	typeOfGender.add('F');
@@ -66,18 +64,19 @@ public class StatisticsService
         	Integer numberPerUsers = myAppUserRepository.findByGender(gender).size();
         	listNumberOfUsers.add(numberPerUsers.toString());
         }
-        String peopleByGender = "";
+        ArrayList<ArrayList<String>> peopleByGender = new ArrayList<ArrayList<String>>();
         for(int i=0;i<typeOfGender.size();i++) {
-        	peopleByGender = peopleByGender + typeOfGender.get(i) + " " + listNumberOfUsers.get(i) + " ";
+        	peopleByGender.add(peopleByGenderMethod(typeOfGender.get(i),listNumberOfUsers.get(i)));
         }
-    	//JSONObject sendData = new JSONObject();
-        return peopleByGender;
+        Gson Json = new Gson();        
+        String sendData = Json.toJson(peopleByGender);
+        return sendData;
     }
-    public Integer perAbsence() throws Exception
+    
+    public String perAbsence() throws Exception
     {
     	List<Absence> absence = new ArrayList<>();
     	absenceRepository.findAll().forEach(absence::add);
-    	//List<Absence> numberOfAbsence = new ArrayList<>();
     	HashMap<String,Integer>numberOfAbsence = new HashMap<>();
     	for(int i = 0; i < absence.size(); i++) {  
             Integer counter = 0; 
@@ -90,11 +89,11 @@ public class StatisticsService
     			numberOfAbsence.put(absence.get(i).getUserStudent().getId(), counter);
     		}
     	}
-    	Integer numberOfAbsencePerStudent = numberOfAbsence.size();
-    	
-        //JSONObject sendData = new JSONObject();
-        return numberOfAbsencePerStudent;
+    	Gson Json = new Gson();
+    	String sendData = Json.toJson(numberOfAbsence);
+        return sendData;
     }
+    
     public Integer finishInXdays() throws Exception
     {
         List<Course> finishInXDays = new ArrayList<>();
@@ -144,5 +143,16 @@ public class StatisticsService
         }
         return (activeStudents);
     }
-
+    public static ArrayList<String> peopleByItineraryMethod(String itinerary, String numberOfPeople) {
+    	ArrayList<String> itineraryObject = new ArrayList<>();
+    	itineraryObject.add(itinerary);
+    	itineraryObject.add(numberOfPeople);
+    	return itineraryObject;
+    }
+    public static ArrayList<String> peopleByGenderMethod (Character typeOfGender, String numberOfUsers){
+    	ArrayList<String> peopleByGenderList = new ArrayList<String>();
+    	peopleByGenderList.add(typeOfGender.toString());
+    	peopleByGenderList.add(numberOfUsers);
+    	return peopleByGenderList;
+    }
 }
