@@ -53,11 +53,16 @@ public class MyAppUserService {
 	}
 	
 	// Put - Edit by dni
-		public MyAppUser editGetByDni(String idDocument, MyAppUser student) {
+		public MyAppUser editGetByDni(MyAppUser student) {
 			
-			myAppUserRepository.save(student);
+			if(myAppUserRepository.existsById(student.getId())) {
+			MyAppUser user = myAppUserRepository.findOneById(student.getId());
+			user.setFirstName(student.getFirstName());
+			user.setLastName(student.getLastName());
+			System.out.println(user.getRole().getId());
+			myAppUserRepository.save(user);
 			
-			 return student;
+			 return user;
+			 }else {return null;}
 		}
-	
 }
