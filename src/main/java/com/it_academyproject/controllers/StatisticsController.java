@@ -79,7 +79,7 @@ public class StatisticsController
     {
         try
         {
-            Integer sendData = statisticsService.finishInXdays();
+            String sendData = statisticsService.finishInXdays();
             return new ResponseEntity( sendData.toString() , HttpStatus.FOUND);
         }
         catch (Exception e)
