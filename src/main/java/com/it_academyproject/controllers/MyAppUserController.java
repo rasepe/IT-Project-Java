@@ -20,6 +20,7 @@ public class MyAppUserController {
 	MyAppUserService myAppUserService;
 	
 	//Call for students
+	//@JsonView(View.Summary.class)
 	@JsonView(View.Summary.class)
 	@GetMapping("/api/students")
 	public List<MyAppUser> getAllStudents(){
@@ -34,14 +35,14 @@ public class MyAppUserController {
 	}
 	
 	//Call students by surname
-	@JsonView(View.Summary.class)
+	@JsonView(View.SummaryWithOthers.class)
 	@GetMapping("api/students/surname")
 	public List<MyAppUser> getStudentsBySurname(@RequestBody MyAppUser student){
 		return myAppUserService.getBySurname(student.getLastName());
 	}
 	
 	//Call students by dni
-	@JsonView(View.Summary.class)
+	@JsonView(View.SummaryWithOthers.class)
 	@GetMapping("api/students/dni")
 	public MyAppUser getStudentByDni(@RequestBody MyAppUser student){
 		return myAppUserService.getByDni(student.getIdDocument());
@@ -55,10 +56,10 @@ public class MyAppUserController {
 	}
 	
 	//Edit Student by Id document
-	@JsonView(View.Summary.class)
+	@JsonView(View.SummaryWithOthers.class)
 	@PutMapping("api/students")
 	public MyAppUser PutStudentByDni(@RequestBody MyAppUser student){
-		return myAppUserService.editGetByDni(student.getIdDocument(), student);
+		return myAppUserService.editGetByDni( student);
 	}
 		
 	
