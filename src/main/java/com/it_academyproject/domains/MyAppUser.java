@@ -36,7 +36,7 @@ public class MyAppUser {
 	@JsonView(View.Summary.class)
 	private String lastName;
 	
-	@JsonView(View.Summary.class)
+	//@JsonView(View.Summary.class)
 	private String idDocument;
 	
 	@JsonView(View.SummaryWithOthers.class)
