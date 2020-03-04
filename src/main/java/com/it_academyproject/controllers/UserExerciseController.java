@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -106,6 +107,8 @@ public class UserExerciseController
 	@PutMapping("/api/userExercise/exercice_id")
 	public boolean setUserExerciseStatusData(@RequestBody UserExercice userExercice) { 
 
+		
+		
 
 		//UserExercice change;
 		List <UserExercice> list = userExerciceRepository.findAll();
@@ -114,6 +117,7 @@ public class UserExerciseController
 				Date date = new Date();	
 				list.get(i).setDate_status(date);
 				list.get(i).setStatusExercice(userExercice.getStatusExercice());
+				userExerciceRepository.save(list.get(i));
 				return true;
 			}
 		}
@@ -122,6 +126,8 @@ public class UserExerciseController
 
 
 	}
+	
+
 
 
 

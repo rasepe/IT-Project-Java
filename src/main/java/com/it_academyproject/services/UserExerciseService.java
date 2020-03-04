@@ -70,6 +70,31 @@ public class UserExerciseService
 		}
 	}
 
+	
+
+
+
+
+
+	public JSONObject getExerciseStudentByItinerary (  )
+	{
+		//get all the itineraries
+		List<Itinerary> itineraryList = itineraryRepository.findAll();
+		JSONObject sendData = new JSONObject();
+		for (int i = 0; i < itineraryList.size(); i++)
+		{
+			String itineraryId = Integer.toString( itineraryList.get(i).getId() );
+			JSONObject returnJson = getExerciseStudentByItinerary ( itineraryId );
+			sendData.put("Itinerary_" + itineraryId , returnJson );
+
+
+		}
+		return sendData;
+	}
+
+
+
+
 	public JSONObject getExerciseStudentByStudent(MyAppUser student) {
 		try
 		{
@@ -105,50 +130,9 @@ public class UserExerciseService
 		}
 	}
 
-
-
-
-
-	public JSONObject getExerciseStudentByItinerary (  )
-	{
-		//get all the itineraries
-		List<Itinerary> itineraryList = itineraryRepository.findAll();
-		JSONObject sendData = new JSONObject();
-		for (int i = 0; i < itineraryList.size(); i++)
-		{
-			String itineraryId = Integer.toString( itineraryList.get(i).getId() );
-			JSONObject returnJson = getExerciseStudentByItinerary ( itineraryId );
-			sendData.put("Itinerary_" + itineraryId , returnJson );
-
-
-		}
-		return sendData;
-	}
-
-
-
-	public List<UserExercice> getByStudent(MyAppUser student) {	
-
-
-		List<UserExercice> allUserExercices = userExerciceRepository.findAll();
-		List<UserExercice> userExercicesByStudent = new ArrayList<UserExercice>();
-
-
-		for (int i=0; i<allUserExercices.size(); i++) {
-
-			if (allUserExercices.get(i).getUserStudent() != null) {
-
-				if (student.getId().equals(allUserExercices.get(i).getUserStudent().getId())) {
-					userExercicesByStudent.add(allUserExercices.get(i));
-
-				}
-			}
-		}
-
-		return userExercicesByStudent;
-	}
-
-
+	
+	
+	
 
 
 }
