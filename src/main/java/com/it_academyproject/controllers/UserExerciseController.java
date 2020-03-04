@@ -100,35 +100,21 @@ public class UserExerciseController
 
 
 
-
+	/*
+	 * Modelo de llamada PUT: { "id": 1, "statusExercice":{"id":4} }
+	 * La fecha se actualiza automáticamente desde el back end, 
+	 * no hace falta incorporarla en el JSON
+	 */
 	//SET @CrossOrigin BEFORE DEPLOYING TO PRODUCTION!
 	@CrossOrigin
 	@JsonView(View.Summary.class)
 	@PutMapping("/api/userExercise/exercice_id")
 	public boolean setUserExerciseStatusData(@RequestBody UserExercice userExercice) { 
 
+		return userExerciseService.setUserExerciseStatusData(userExercice);
 		
-		
-
-		//UserExercice change;
-		List <UserExercice> list = userExerciceRepository.findAll();
-		for (int i=0; i<list.size(); i++) {
-			if (list.get(i).getId() == userExercice.getId()) {
-				Date date = new Date();	
-				list.get(i).setDate_status(date);
-				list.get(i).setStatusExercice(userExercice.getStatusExercice());
-				userExerciceRepository.save(list.get(i));
-				return true;
-			}
-		}
-
-		return false;
-
-
 	}
 	
-
-
 
 
 }

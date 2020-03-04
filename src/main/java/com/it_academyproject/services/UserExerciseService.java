@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -130,8 +131,24 @@ public class UserExerciseService
 		}
 	}
 
-	
-	
+
+
+	public boolean setUserExerciseStatusData(UserExercice userExercice) {
+		List <UserExercice> list = userExerciceRepository.findAll();
+		for (int i=0; i<list.size(); i++) {
+			if (list.get(i).getId() == userExercice.getId()) {
+				Date date = new Date();	
+				list.get(i).setDate_status(date);
+				list.get(i).setStatusExercice(userExercice.getStatusExercice());
+				userExerciceRepository.save(list.get(i));
+				return true;
+			}
+		}
+
+		return false;
+		
+	}
+
 	
 
 
