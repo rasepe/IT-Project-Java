@@ -61,9 +61,4 @@ public class MyAppUserController {
 	public MyAppUser PutStudentByDni(@RequestBody MyAppUser student){
 		return myAppUserService.editGetByDni( student);
 	}
-		
-	
-	
-	
-
 }
