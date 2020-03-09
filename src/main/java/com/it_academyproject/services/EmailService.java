@@ -58,7 +58,7 @@ public class EmailService {
 
 				Emails emailsListNotification = new Emails("ABSENCES");
 				emailsListNotification.setUserStudent(absence.get(i).getUserStudent());
-				emailsListNotification.setSent(true);								//////////  THIS IS TO NOT REPEAT THE ABSENCE EMAIL IF THE STUDENT ONLY HAVE 8 ABSENCE///////    			
+				emailsListNotification.setSent(false);								//////////  THIS IS TO NOT REPEAT THE ABSENCE EMAIL IF THE STUDENT ONLY HAVE 8 ABSENCE///////    			
 				emailsRepository.save(emailsListNotification);
 
 
@@ -70,6 +70,7 @@ public class EmailService {
 						"                                            the IT Academy course.";
 				if (email!=null && name!=null) {
 					try {
+						emailsListNotification.setSent(true);	
 						emailNotification(email,name,messageBody);
 					} catch (Exception e) {
 						e.printStackTrace();
