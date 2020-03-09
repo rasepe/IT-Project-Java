@@ -18,9 +18,8 @@ public class Emails {
 	private int id;
 	private boolean sent;
 
-
-	@ManyToOne(fetch = FetchType.EAGER)  //Previously @OnetoOne, but one user can receive as much as three emails (one when he has reached 8 absences, one 30 days prior to finalization, one 15 days prior to finalization)
-	@JoinColumn(name="student_id")
+	@ManyToOne (fetch = FetchType.EAGER)
+	@JoinColumn (name="student_id")
 	private MyAppUser userStudent;
 
 	private EmailType emailType;
@@ -110,7 +109,5 @@ public class Emails {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-
-
 
 }
