@@ -72,6 +72,8 @@ public class MyAppUser {
 	private List <Course> courses = new ArrayList <Course>();
 	@OneToMany (targetEntity = UserExercice.class, cascade = CascadeType.ALL)
 	private List <UserExercice> userExercices = new ArrayList <UserExercice>();
+	@OneToMany (targetEntity = Emails.class, cascade = CascadeType.ALL)
+	private List <Emails> emails = new ArrayList <Emails>();
 	
 	public MyAppUser() {
 		
