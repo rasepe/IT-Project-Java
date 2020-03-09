@@ -76,7 +76,6 @@ public class EmailService {
 						e.printStackTrace();
 					}
 				}
-				//}
 			}   		
 		}	
 
@@ -113,7 +112,6 @@ public class EmailService {
 							emailsListNotification.setSent(true);
 							emailsRepository.save(emailsListNotification);
 							emailNotification(email,name,messageBody);
-							//return true;
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -129,7 +127,7 @@ public class EmailService {
 					String name = finishInXDays.get(i).getUserStudent().getFirstName();
 					String messageBody = "                                            I hope this e-mail finds you well. This message is to inform you, that you are about to end the IT Academy"+
 							"                                            course in less than " + daysInt +" days.";
-					if (email!=null) {
+					if (email!=null && name!=null) {
 						try {
 							emailsListNotification.setSent(true);
 							emailsRepository.save(emailsListNotification);
