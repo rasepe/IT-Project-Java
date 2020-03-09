@@ -44,7 +44,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         setFilterProcessesUrl(SecurityConstants.AUTH_LOGIN_URL);
     }
 	//B-27 Task: Update last time an user do login.
-    public static MyAppUser editGetByDni(MyAppUser student) {
+    public MyAppUser editGetByDni(MyAppUser student) {
 		
 		if(myAppUserRepository.existsById(student.getId())) {
 		MyAppUser user = myAppUserRepository.findOneById(student.getId());
