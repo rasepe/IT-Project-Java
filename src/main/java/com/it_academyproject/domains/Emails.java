@@ -18,7 +18,7 @@ public class Emails {
 	private int id;
 	private boolean sent;
 
-	@ManyToOne (fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn (name="student_id")
 	private MyAppUser userStudent;
 
@@ -43,7 +43,6 @@ public class Emails {
 			this.setEmailType(EmailType.DAYSLEFT30);
 			break;
 		}
-		//this.sent = false;//sent; // true;
 		Date today = new Date();	
 		this.setDate(today);
 	}
