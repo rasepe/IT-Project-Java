@@ -17,7 +17,7 @@ public class EmailController {
 	public EmailService emailService;
 
 	//	@PostMapping("/api/emails/notification") // JUST FOR TEST PURPOSES. TO TEST THIS CALL YOU HAVE TO EDIT THE COURSE TABLE (END DATE TO 15 DAYS OR 30 DAYS FROM NOW)
-	@Scheduled(cron = "0 03 9 * * ?")
+	@Scheduled(cron = "0 0 9 * * ?")
 	public void sendMail() throws Exception {		
 
 		emailService.notificationEmailAbsence();
