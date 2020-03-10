@@ -35,8 +35,6 @@ public class EmailService {
 	public EmailsRepository emailsRepository;
 
 
-	///For clarity purposes, the former method notificationEmail() has been divided in two methods: notificationeMailAbsence() and  notificationEmailDaysLeft()
-
 	///////////////////////////////////////////////    8 ABSENCE NOTIFICATION    ///////////////////////////////////////////////////////////////
 
 	public void notificationEmailAbsence() {
@@ -56,26 +54,42 @@ public class EmailService {
 				List<Emails> emailsSent = new ArrayList<>();
 				emailsRepository.findByUserStudent(absence.get(i).getUserStudent()).forEach(emailsSent::add);
 
-				Emails emailsListNotification = new Emails("ABSENCES");
-				emailsListNotification.setUserStudent(absence.get(i).getUserStudent());
-				emailsListNotification.setSent(false);								//////////  THIS IS TO NOT REPEAT THE ABSENCE EMAIL IF THE STUDENT ONLY HAVE 8 ABSENCE///////    			
-				emailsRepository.save(emailsListNotification);
 
+				boolean hasBeenNotified = false;
 
+				for (int j=0; j<emailsSent.size(); j++) {
+					if (emailsSent.get(j).isSent() == true && emailsSent.get(j).getEmailType().getId() == 1) {
 
-				String email = absence.get(i).getUserStudent().getEmail();        //////////  COMMENT THIS LINE IF YOU WANT TO TEST ///////////
-				//String email = "rasepe@gmail.com"; //String email = "alitunja27@gmail.com";								////////// THESE EMAILS HAVE BEEN USED JUST FOR TESTING PURPOSES /////////
-				String name = absence.get(i).getUserStudent().getFirstName();
-				String messageBody = "                                            I hope this e-mail finds you well. This message is to inform you, that you have "+counter+" absences in"+
-						"                                            the IT Academy course.";
-				if (email!=null && name!=null) {
-					try {
-						emailsListNotification.setSent(true);	
-						emailNotification(email,name,messageBody);
-					} catch (Exception e) {
-						e.printStackTrace();
+						hasBeenNotified = true;
 					}
 				}
+
+				if (hasBeenNotified == false) {
+
+					Emails emailsListNotification = new Emails("ABSENCES");
+					emailsListNotification.setUserStudent(absence.get(i).getUserStudent());
+					emailsListNotification.setSent(false);								
+					emailsRepository.save(emailsListNotification);
+
+
+
+					String email = absence.get(i).getUserStudent().getEmail();        
+					String name = absence.get(i).getUserStudent().getFirstName();
+					String messageBody = "                                            I hope this e-mail finds you well. This message is to inform you, that you have "+counter+" absences in"+
+							"                                            the IT Academy course.";
+					if (email!=null && name!=null) {
+						try {
+							emailsListNotification.setSent(true);	
+							emailsRepository.save(emailsListNotification);
+							emailNotification(email,name,messageBody);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+
+				}
+
+
 			}   		
 		}	
 
@@ -102,8 +116,7 @@ public class EmailService {
 					emailsListNotification.setUserStudent(finishInXDays.get(i).getUserStudent()); 
 					emailsListNotification.setSent(false);	
 					emailsRepository.save(emailsListNotification); 
-					String email = finishInXDays.get(i).getUserStudent().getEmail();   //////////  COMMENT THIS LINE IF YOU WANT TO TEST ///////////
-					//String email = null; //"rasepe@gmail.com"; //String email = "alitunja27@gmail.com";								////////// THESE EMAILS HAVE BEEN USED JUST FOR TESTING PURPOSES /////////
+					String email = finishInXDays.get(i).getUserStudent().getEmail();   
 					String name = finishInXDays.get(i).getUserStudent().getFirstName();
 					String messageBody = "                                            I hope this e-mail finds you well. This message is to inform you, that you are about to end the IT Academy"+
 							"                                            course in less than " + daysInt +" days.";
@@ -122,8 +135,7 @@ public class EmailService {
 					emailsListNotification.setUserStudent(finishInXDays.get(i).getUserStudent()); 
 					emailsListNotification.setSent(false);	
 					emailsRepository.save(emailsListNotification); 
-					String email = finishInXDays.get(i).getUserStudent().getEmail();    //////////  COMMENT THIS LINE IF YOU WANT TO TEST ///////////
-					//String email ="rasepe@gmail.com"; //String email = "alitunja27@gmail.com";			////////// THESE EMAILS HAVE BEEN USED JUST FOR TESTING PURPOSES /////////
+					String email = finishInXDays.get(i).getUserStudent().getEmail();    
 					String name = finishInXDays.get(i).getUserStudent().getFirstName();
 					String messageBody = "                                            I hope this e-mail finds you well. This message is to inform you, that you are about to end the IT Academy"+
 							"                                            course in less than " + daysInt +" days.";
