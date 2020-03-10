@@ -64,4 +64,37 @@ public class MyAppUserService {
 			 return user;
 			 }else {return null;}
 		}
+
+/*
+	// find the user by the email passed to the repository
+	static public MyAppUser findUserByEmail(final String email){
+		return myAppUserRepository.findByEmail(email);
+	}
+
+	// Stores the user token generated in the controller
+	public static void createPasswordResetTokenForUser(MyAppUser user, String token){
+		PasswordResetToken myToken = new PasswordResetToken(token, user);
+		passwordTokenRepository.save(myToken);
+	}
+
+	private SimpleMailMessage constructResetTokenEmail(String contextPath, Locale locale, String token, MyAppUser user) {
+		String url = contextPath + "/user/changePassword?id=" + user.getId() + "&token=" + token;
+		String message = messages.getMessage("message.resetPassword", null, locale);
+		return constructEmail("Reset Password", message + " \r\n" + url, user);
+	}
+
+	private SimpleMailMessage constructEmail(String subject, String body, MyAppUser user) {
+		SimpleMailMessage email = new SimpleMailMessage();
+		email.setSubject(subject);
+		email.setText(body);
+		email.setTo(user.getEmail());
+		email.setFrom(env.getProperty("support.email"));
+		return email;
+	}
+
+	public static void changeUserPassword(MyAppUser user, String password){
+		user.setPassword(passwordEncoder.encode(password));
+		myAppUserRepository.save(user);
+	}
+*/
 }
