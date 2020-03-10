@@ -18,8 +18,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EntityScan(basePackages = {"com.it_academyproject.domains" , "com.it_academyproject.jwt_security.model"} )
 @EnableJpaRepositories(basePackages = {"com.it_academyproject.repositories" , "com.it_academyproject.jwt_security.repository"})
 @EnableWebMvc
-@Configuration // ADDED TO ALLOW AUTOMATIC SCHEDULING OF EMAILS
-@EnableScheduling // ADDED TO ALLOW AUTOMATIC SCHEDULING OF EMAILS
+@Configuration
+@EnableScheduling
 @Import(SecurityConfiguration.class)
 public class ItProjectServerApplication {
 
