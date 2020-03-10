@@ -16,7 +16,7 @@ public class EmailController {
 	@Autowired
 	public EmailService emailService;
 
-	@Scheduled(cron = "0 23 11 * * ?")
+	@Scheduled(cron = "0 0 9 * * ?")
 	public void sendMail() throws Exception {		
 
 		emailService.notificationEmailAbsence();
