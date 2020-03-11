@@ -23,7 +23,7 @@ import com.it_academyproject.tools.View;
 
 @Entity
 @Table(name="users")
-public class MyAppUser {
+public abstract class MyAppUser {
 	
 	//@GeneratedValue(strategy=GenerationType.IDENTITY)	
 	@Id

@@ -88,25 +88,25 @@ public class DataImporter
         Role teachersRol = roleRepository.findOneById(2);
         Role adminRol = roleRepository.findOneById(3);
 
-        users.add( new MyAppUser( "Testing", "IT - Department", "12345678X", "it@academy.com", 'M',
+        users.add( new Teacher( "Testing", "IT - Department", "12345678X", "it@academy.com", 'M',
                 "", passwordEncoder.encode("123456"), true, teachersRol) );
 
-        users.add( new MyAppUser( "Ismael", "Kale", "", "", 'M',
+        users.add( new Teacher( "Ismael", "Kale", "", "", 'M',
                 "", passwordEncoder.encode(""), true, teachersRol) );
 
-        users.add( new MyAppUser( "Jake", "Patrulla", "", "", 'M',
+        users.add( new Teacher( "Jake", "Patrulla", "", "", 'M',
                 "", passwordEncoder.encode(""), true, teachersRol) );
 
-        users.add( new MyAppUser( "José", "José", "", "", 'M',
+        users.add( new Teacher( "José", "José", "", "", 'M',
                 "", passwordEncoder.encode(""), true, teachersRol) );
 
-        users.add( new MyAppUser( "Rubén", "Rubén", "", "", 'M',
+        users.add( new Teacher( "Rubén", "Rubén", "", "", 'M',
                 "", passwordEncoder.encode(""), true, teachersRol) );
 
-        users.add( new MyAppUser( "Martí", "", "Rodríguez Mestre", "", 'M',
+        users.add( new Admin( "Martí", "", "Rodríguez Mestre", "", 'M',
                 "", passwordEncoder.encode(""), true, adminRol) );
 
-        users.add( new MyAppUser( "Marc", "Vera", "", "", 'M',
+        users.add( new Admin( "Marc", "Vera", "", "", 'M',
                 "", passwordEncoder.encode(""), true, adminRol) );
 
         Map <Integer , String> teacherVSitinerary = new HashMap<>();
@@ -178,7 +178,7 @@ public class DataImporter
             for (Integer i : excelContent.keySet())
             {
                 //create the objects that will be placed in the data base
-                MyAppUser myAppUser = new MyAppUser();
+                MyAppUser myAppUser = new Student();
                 Course course = new Course();
                 currentRow = excelContent.get(i);
 

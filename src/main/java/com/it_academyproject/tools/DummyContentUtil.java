@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.it_academyproject.domains.MyAppUser;
+import com.it_academyproject.domains.Student;
 import com.it_academyproject.exceptions.EmptyFieldException;
 import com.it_academyproject.repositories.MyAppUserRepository;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,35 +19,29 @@ public class DummyContentUtil
     {
         this.myAppUserRepository = myAppUserRepository;
     }
-    public List<MyAppUser> generateDummyUsers()
+    public List<MyAppUser> generateDummyUsers() throws EmptyFieldException
     {
         List<MyAppUser> users = new ArrayList<>();
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        try {
-            users.add(new MyAppUser("vickycampo@gmail.com", passwordEncoder.encode("123456")));
+        users.add(new Student("vickycampo@gmail.com", passwordEncoder.encode("123456")));
 
 
-            MyAppUser myAppUser;
-            for (int i = 0; i < users.size() ; i++)
-            {
-                myAppUser = myAppUserRepository.findByEmail(users.get(i).getEmail());
-                if (myAppUser != null)
-                {
-                    myAppUser.setPassword(users.get(i).getPassword());
-                    myAppUserRepository.save(myAppUser);
-                }
-                else
-                {
-                    myAppUserRepository.save(users.get(i));
-                }
+		MyAppUser myAppUser;
+		for (int i = 0; i < users.size() ; i++)
+		{
+		    myAppUser = myAppUserRepository.findByEmail(users.get(i).getEmail());
+		    if (myAppUser != null)
+		    {
+		        myAppUser.setPassword(users.get(i).getPassword());
+		        myAppUserRepository.save(myAppUser);
+		    }
+		    else
+		    {
+		        myAppUserRepository.save(users.get(i));
+		    }
 
 
-            }
-        }
-        catch (EmptyFieldException e)
-        {
-            e.printStackTrace();
-        }
+		}
         return users;
     }
 
