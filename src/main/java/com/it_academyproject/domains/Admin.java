@@ -4,19 +4,16 @@ import com.it_academyproject.exceptions.EmptyFieldException;
 public class Admin extends MyAppUser {
 
 	public Admin(String firstName, String lastName, String idDocument, String email, char gender,
-			String portrait, String password, boolean enabled, Role role) {
+			String portrait, String password, boolean enabled, Role role) throws EmptyFieldException {
 
 		
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.idDocument = idDocument;
-		this.email = email;
-		this.gender = gender;
-		this.portrait = portrait;
-		this.password = password;
-		this.enabled = enabled;
-		this.role = role;
+		super(firstName, lastName, idDocument, email, gender, portrait, password, enabled, role);
 	}
 
+	
+	public Admin() {
+		
+	}
+	
 	
 }

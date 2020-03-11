@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.it_academyproject.exceptions.EmptyFieldException;
 import com.it_academyproject.tools.dataImporter.DataImporter;
 
 import java.util.Map;
@@ -18,7 +20,7 @@ public class DataImportController
     private final String SLASH = "\\";
 
     @GetMapping
-    public String getMessage()
+    public String getMessage() throws EmptyFieldException
     {
         JSONObject errorData = new JSONObject();
         Map<Integer , String> teacherVSitinerary = dataImporter.manualCreation();

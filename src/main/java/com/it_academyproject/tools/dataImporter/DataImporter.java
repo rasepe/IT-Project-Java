@@ -1,7 +1,7 @@
 package com.it_academyproject.tools.dataImporter;
 
 import com.it_academyproject.domains.*;
-
+import com.it_academyproject.exceptions.EmptyFieldException;
 import com.it_academyproject.repositories.*;
 
 import com.it_academyproject.tools.excel.Excel;
@@ -38,7 +38,7 @@ public class DataImporter
     SeatRepository seatRepository;
 
 
-    public Map <Integer , String> manualCreation ()
+    public Map <Integer , String> manualCreation () throws EmptyFieldException
     {
         //role
         Map<Integer , String >rolesList = new HashMap<>();

@@ -77,20 +77,37 @@ public abstract class MyAppUser {
 		
 	}
 	
-//	public MyAppUser(String firstName, String lastName, String idDocument, String email, char gender,
-//			String portrait, String password, boolean enabled, Role role) {
-//
-//		
-//		this.firstName = firstName;
-//		this.lastName = lastName;
-//		this.idDocument = idDocument;
-//		this.email = email;
-//		this.gender = gender;
-//		this.portrait = portrait;
-//		this.password = password;
-//		this.enabled = enabled;
-//		this.role = role;
-//	}
+	public MyAppUser(String firstName, String lastName, String idDocument, String email, char gender,
+			String portrait, String password, boolean enabled, Role role) throws EmptyFieldException {
+
+		
+		
+		if ((email != "")&&(password!=""))
+		{
+			
+			this.firstName = firstName;
+			this.lastName = lastName;
+			this.idDocument = idDocument;
+			this.gender = gender;
+			this.portrait = portrait;
+			this.enabled = enabled;
+			this.role = role;
+			
+			this.email = email;
+			this.password = password;
+			this.lastLogin = new Date();
+			this.enabled = true;
+		}
+		else if (email == "")
+		{
+			throw (new EmptyFieldException("email"));
+		}
+		else if ( password == "" )
+		{
+			throw (new EmptyFieldException("password"));
+		}
+		
+	}
 //	
 //	 public MyAppUser(String email, String password) throws EmptyFieldException
 //	    {
