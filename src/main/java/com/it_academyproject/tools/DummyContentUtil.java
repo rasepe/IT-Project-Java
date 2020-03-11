@@ -19,29 +19,35 @@ public class DummyContentUtil
     {
         this.myAppUserRepository = myAppUserRepository;
     }
-    public List<MyAppUser> generateDummyUsers() throws EmptyFieldException
+    public List<MyAppUser> generateDummyUsers()
     {
         List<MyAppUser> users = new ArrayList<>();
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        users.add(new Student("vickycampo@gmail.com", passwordEncoder.encode("123456")));
+        try {
+            users.add(new Student("vickycampo@gmail.com", passwordEncoder.encode("123456")));
 
 
-		MyAppUser myAppUser;
-		for (int i = 0; i < users.size() ; i++)
-		{
-		    myAppUser = myAppUserRepository.findByEmail(users.get(i).getEmail());
-		    if (myAppUser != null)
-		    {
-		        myAppUser.setPassword(users.get(i).getPassword());
-		        myAppUserRepository.save(myAppUser);
-		    }
-		    else
-		    {
-		        myAppUserRepository.save(users.get(i));
-		    }
+            MyAppUser myAppUser;
+            for (int i = 0; i < users.size() ; i++)
+            {
+                myAppUser = myAppUserRepository.findByEmail(users.get(i).getEmail());
+                if (myAppUser != null)
+                {
+                    myAppUser.setPassword(users.get(i).getPassword());
+                    myAppUserRepository.save(myAppUser);
+                }
+                else
+                {
+                    myAppUserRepository.save(users.get(i));
+                }
 
 
-		}
+            }
+        }
+        catch (EmptyFieldException e)
+        {
+            e.printStackTrace();
+        }
         return users;
     }
 

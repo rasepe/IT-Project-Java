@@ -3,8 +3,20 @@ import com.it_academyproject.exceptions.EmptyFieldException;
 
 public class Admin extends MyAppUser {
 
-	public Admin(String string, String encode, String string2, String string3, char c, String string4, String string5, boolean b, Role adminRol) {
-		// TODO Auto-generated constructor stub
+	public Admin(String firstName, String lastName, String idDocument, String email, char gender,
+			String portrait, String password, boolean enabled, Role role) {
+
+		
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.idDocument = idDocument;
+		this.email = email;
+		this.gender = gender;
+		this.portrait = portrait;
+		this.password = password;
+		this.enabled = enabled;
+		this.role = role;
 	}
 
+	
 }

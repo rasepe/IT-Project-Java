@@ -31,25 +31,25 @@ public abstract class MyAppUser {
 	private String id;
 	
 	@JsonView(View.Summary.class)
-	private String firstName;
+	protected String firstName;
 	
 	@JsonView(View.Summary.class)
-	private String lastName;
+	protected String lastName;
 	
 	//@JsonView(View.Summary.class)
-	private String idDocument;
+	protected String idDocument;
 	
 	@JsonView(View.SummaryWithOthers.class)
-	private String email;
+	protected String email;
 	
 	@JsonView(View.SummaryWithOthers.class)
-	private char gender;
+	protected char gender;
 
 	@JsonView(View.SummaryWithOthers.class)
 	private int age;
 	
 	@JsonView(View.SummaryWithOthers.class)
-	private String portrait;
+	protected String portrait;
 
 	@JsonView(View.SummaryWithOthers.class)
 	@ManyToOne
@@ -57,14 +57,14 @@ public abstract class MyAppUser {
 
 
 
-	private String password;
-	private boolean enabled;
-	private Date lastLogin;
+	protected String password;
+	protected boolean enabled;
+	protected Date lastLogin;
 
 	
 	@ManyToOne (fetch = FetchType.EAGER)
 	@JoinColumn (name="rol_id")
-	private Role role;
+	protected Role role;
 	
 	@OneToMany (targetEntity = Absence.class, cascade = CascadeType.ALL)
 	private List <Absence> absences = new ArrayList <Absence>();
@@ -77,39 +77,39 @@ public abstract class MyAppUser {
 		
 	}
 	
-	public MyAppUser(String firstName, String lastName, String idDocument, String email, char gender,
-			String portrait, String password, boolean enabled, Role role) {
-
-		
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.idDocument = idDocument;
-		this.email = email;
-		this.gender = gender;
-		this.portrait = portrait;
-		this.password = password;
-		this.enabled = enabled;
-		this.role = role;
-	}
-	
-	 public MyAppUser(String email, String password) throws EmptyFieldException
-	    {
-	        if ((email != "")&&(password!=""))
-	        {
-	            this.email = email;
-	            this.password = password;
-	            this.lastLogin = new Date();
-	            this.enabled = true;
-	        }
-	        else if (email == "")
-	        {
-	            throw (new EmptyFieldException("email"));
-	        }
-	        else if ( password == "" )
-	        {
-	            throw (new EmptyFieldException("password"));
-	        }
-	    }
+//	public MyAppUser(String firstName, String lastName, String idDocument, String email, char gender,
+//			String portrait, String password, boolean enabled, Role role) {
+//
+//		
+//		this.firstName = firstName;
+//		this.lastName = lastName;
+//		this.idDocument = idDocument;
+//		this.email = email;
+//		this.gender = gender;
+//		this.portrait = portrait;
+//		this.password = password;
+//		this.enabled = enabled;
+//		this.role = role;
+//	}
+//	
+//	 public MyAppUser(String email, String password) throws EmptyFieldException
+//	    {
+//	        if ((email != "")&&(password!=""))
+//	        {
+//	            this.email = email;
+//	            this.password = password;
+//	            this.lastLogin = new Date();
+//	            this.enabled = true;
+//	        }
+//	        else if (email == "")
+//	        {
+//	            throw (new EmptyFieldException("email"));
+//	        }
+//	        else if ( password == "" )
+//	        {
+//	            throw (new EmptyFieldException("password"));
+//	        }
+//	    }
 
 	public String getId() {
 		return id;
