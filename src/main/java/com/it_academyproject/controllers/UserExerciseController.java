@@ -36,7 +36,7 @@ public class UserExerciseController
 	@Autowired
 	UserExerciceRepository userExerciceRepository;
 
-	@GetMapping ("/api/userExercise/{itineraryId}")
+	@GetMapping ("/api/userExercise/{itineraryId}/")
 	public ResponseEntity<String>  getExerciseStudentByItinerary (@PathVariable String itineraryId )
 	{
 		try
@@ -55,7 +55,7 @@ public class UserExerciseController
 			return new ResponseEntity( sendData.toString() , HttpStatus.BAD_REQUEST);
 		}
 	}
-	@GetMapping ("/api/userExercise")
+	@GetMapping ("/api/userExercise/")
 	public ResponseEntity  getExerciseStudentByItinerary ( )
 	{
 		try
@@ -78,7 +78,7 @@ public class UserExerciseController
 	}
 
 	@JsonView(View.Summary.class)
-	@GetMapping ("/api/userExercise/Student_id")
+	@GetMapping ("/api/userExercise/Student_id/")
 	public ResponseEntity<String>  getExercicesbyStudentId (@RequestBody MyAppUser student){
 
 		try
@@ -108,7 +108,7 @@ public class UserExerciseController
 	//SET @CrossOrigin BEFORE DEPLOYING TO PRODUCTION!
 	@CrossOrigin
 	@JsonView(View.Summary.class)
-	@PutMapping("/api/userExercise/exercice_id")
+	@PutMapping("/api/userExercise/exercice_id/")
 	public boolean setUserExerciseStatusData(@RequestBody UserExercice userExercice) { 
 
 		return userExerciseService.setUserExerciseStatusData(userExercice);

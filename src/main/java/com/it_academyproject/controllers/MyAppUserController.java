@@ -22,42 +22,42 @@ public class MyAppUserController {
 	//Call for students
 	//@JsonView(View.Summary.class)
 	@JsonView(View.Summary.class)
-	@GetMapping("/api/students")
+	@GetMapping("/api/students/")
 	public List<MyAppUser> getAllStudents(){
 		return myAppUserService.getAllStudents();
 	}
 	
 	//Call students by name
 	@JsonView(View.Summary.class)
-	@GetMapping("api/students/name")
+	@GetMapping("api/students/name/")
 	public List<MyAppUser> getStudentsByName(@RequestBody MyAppUser student){
 		return myAppUserService.getByName(student.getFirstName());
 	}
 	
 	//Call students by surname
 	@JsonView(View.SummaryWithOthers.class)
-	@GetMapping("api/students/surname")
+	@GetMapping("api/students/surname/")
 	public List<MyAppUser> getStudentsBySurname(@RequestBody MyAppUser student){
 		return myAppUserService.getBySurname(student.getLastName());
 	}
 	
 	//Call students by dni
 	@JsonView(View.SummaryWithOthers.class)
-	@GetMapping("api/students/dni")
+	@GetMapping("api/students/dni/")
 	public MyAppUser getStudentByDni(@RequestBody MyAppUser student){
 		return myAppUserService.getByDni(student.getIdDocument());
 	}
 		
 	//Call student by Id
 	@JsonView(View.SummaryWithOthers.class)
-	@GetMapping("api/students/id")
+	@GetMapping("api/students/id/")
 	public MyAppUser getStudentById(@RequestBody MyAppUser student){
 		return myAppUserService.getById(student.getId());
 	}
 	
 	//Edit Student by Id document
 	@JsonView(View.SummaryWithOthers.class)
-	@PutMapping("api/students")
+	@PutMapping("api/students/")
 	public MyAppUser PutStudentByDni(@RequestBody MyAppUser student){
 		return myAppUserService.editGetByDni( student);
 	}

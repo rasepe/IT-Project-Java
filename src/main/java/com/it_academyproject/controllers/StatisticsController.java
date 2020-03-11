@@ -15,7 +15,7 @@ public class StatisticsController
     StatisticsService statisticsService;
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
-	@GetMapping( "/api/statistics/per-itinerary" )
+	@GetMapping( "/api/statistics/per-itinerary/" )
     public ResponseEntity perItinerary(){
     	try
         {
@@ -34,7 +34,7 @@ public class StatisticsController
         }
     }
     @SuppressWarnings({ "unchecked", "rawtypes" })
-	@GetMapping( "/api/statistics/per-gender" )
+	@GetMapping( "/api/statistics/per-gender/" )
     public ResponseEntity<String> perGender( )
     {
         try
@@ -54,7 +54,7 @@ public class StatisticsController
         }
     }
     @SuppressWarnings({ "rawtypes", "unchecked" })
-	@GetMapping( "/api/statistics/per-absence" )
+	@GetMapping( "/api/statistics/per-absence/" )
     public ResponseEntity<String> perAbsence()
     {
         try
@@ -74,7 +74,7 @@ public class StatisticsController
         }
     }
     @SuppressWarnings({ "unchecked", "rawtypes" })
-	@GetMapping( "/api/statistics/finish-in-x-days" )
+	@GetMapping( "/api/statistics/finish-in-x-days/" )
     public ResponseEntity<String> finishInXdays()
     {
         try
