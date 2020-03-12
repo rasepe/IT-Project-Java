@@ -1,16 +1,16 @@
 package com.it_academyproject.repositories;
 
-import com.it_academyproject.domains.Exercice;
+import com.it_academyproject.domains.Exercise;
 import com.it_academyproject.domains.MyAppUser;
-import com.it_academyproject.domains.UserExercice;
+import com.it_academyproject.domains.UserExercise;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface UserExerciceRepository extends JpaRepository <UserExercice , Integer>
+public interface UserExerciceRepository extends JpaRepository <UserExercise , Integer>
 {
-    UserExercice findOneByUserStudentAndExercice(MyAppUser user , Exercice exercice );
-    List<UserExercice> findByUserStudent(MyAppUser user );
+    UserExercise findOneByUserStudentAndExercice(MyAppUser user , Exercise exercice );
+    List<UserExercise> findByUserStudent(MyAppUser user );
 
     //List<UserExercice> findBy
 }

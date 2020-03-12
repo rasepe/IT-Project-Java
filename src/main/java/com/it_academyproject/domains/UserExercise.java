@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
 
 
 @Entity
-public class UserExercice {
+public class UserExercise {
 	
 	//--------------------------Properties--------------------------------------------------------------
 	@Id
@@ -28,11 +28,11 @@ public class UserExercice {
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="statusExercice_id")
-	private StatusExercice statusExercice;
+	private StatusExercise statusExercice;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="exercice_id")
-	private Exercice exercice;
+	private Exercise exercice;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="student_id")
@@ -46,10 +46,10 @@ public class UserExercice {
 	//--------------------------Constructors--------------------------------------------------------------
 	
 
-	public UserExercice() {
+	public UserExercise() {
 	}
 	
-	public UserExercice(String comments, Date date_status) {
+	public UserExercise(String comments, Date date_status) {
 		this.comments = comments;
 		this.date_status = new Date();
 	}
@@ -75,19 +75,19 @@ public class UserExercice {
 		this.date_status = date_status;
 	}
 
-	public StatusExercice getStatusExercice() {
+	public StatusExercise getStatusExercice() {
 		return statusExercice;
 	}
 
-	public void setStatusExercice(StatusExercice statusExercice) {
+	public void setStatusExercice(StatusExercise statusExercice) {
 		this.statusExercice = statusExercice;
 	}
 
-	public Exercice getExercice() {
+	public Exercise getExercice() {
 		return exercice;
 	}
 
-	public void setExercice(Exercice exercice) {
+	public void setExercice(Exercise exercice) {
 		this.exercice = exercice;
 	}
 

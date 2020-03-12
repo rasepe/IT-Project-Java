@@ -3,7 +3,7 @@ package com.it_academyproject.services;
 import com.it_academyproject.domains.Course;
 import com.it_academyproject.domains.Itinerary;
 import com.it_academyproject.domains.MyAppUser;
-import com.it_academyproject.domains.UserExercice;
+import com.it_academyproject.domains.UserExercise;
 import com.it_academyproject.repositories.CourseRepository;
 import com.it_academyproject.repositories.ItineraryRepository;
 import com.it_academyproject.repositories.MyAppUserRepository;
@@ -43,12 +43,12 @@ public class UserExerciseService
 			//get only active students
 			List<Course> courseList = courseRepository.findByItineraryAndEndDate(itinerary , null);
 			List<MyAppUser> myAppUserList = new ArrayList<>();
-			Map<String , List<UserExercice>> userUserExerciceMap = new HashMap<>();
+			Map<String , List<UserExercise>> userUserExerciceMap = new HashMap<>();
 			for (int i = 0; i < courseList.size() ; i++)
 			{
 				MyAppUser myAppUser = courseList.get( i ).getUserStudent();
 				myAppUserList.add( myAppUser);
-				List<UserExercice> userExerciceList = userExerciceRepository.findByUserStudent(myAppUser);
+				List<UserExercise> userExerciceList = userExerciceRepository.findByUserStudent(myAppUser);
 				//remove the Student field that is not necessary
 				for (int j = 0; j < userExerciceList.size(); j++)
 				{
@@ -103,12 +103,12 @@ public class UserExerciseService
 			//get only active students
 			List<Course> courseList = courseRepository.findByUserStudent(student);
 			List<MyAppUser> myAppUserList = new ArrayList<>();
-			Map<String , List<UserExercice>> userUserExerciceMap = new HashMap<>();
+			Map<String , List<UserExercise>> userUserExerciceMap = new HashMap<>();
 			for (int i = 0; i < courseList.size() ; i++)
 			{
 				MyAppUser myAppUser = courseList.get( i ).getUserStudent();
 				myAppUserList.add( myAppUser);
-				List<UserExercice> userExerciceList = userExerciceRepository.findByUserStudent(myAppUser);
+				List<UserExercise> userExerciceList = userExerciceRepository.findByUserStudent(myAppUser);
 				//remove the Student field that is not necessary
 				for (int j = 0; j < userExerciceList.size(); j++)
 				{
@@ -133,8 +133,8 @@ public class UserExerciseService
 
 
 
-	public boolean setUserExerciseStatusData(UserExercice userExercice) {
-		List <UserExercice> list = userExerciceRepository.findAll();
+	public boolean setUserExerciseStatusData(UserExercise userExercice) {
+		List <UserExercise> list = userExerciceRepository.findAll();
 		for (int i=0; i<list.size(); i++) {
 			if (list.get(i).getId() == userExercice.getId()) {
 				Date date = new Date();	

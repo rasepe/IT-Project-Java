@@ -3,9 +3,9 @@ package com.it_academyproject.controllers;
 
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.it_academyproject.domains.Exercice;
+import com.it_academyproject.domains.Exercise;
 import com.it_academyproject.domains.MyAppUser;
-import com.it_academyproject.domains.UserExercice;
+import com.it_academyproject.domains.UserExercise;
 import com.it_academyproject.repositories.UserExerciceRepository;
 import com.it_academyproject.services.UserExerciseService;
 import com.it_academyproject.tools.View;
@@ -109,7 +109,7 @@ public class UserExerciseController
 	@CrossOrigin
 	@JsonView(View.Summary.class)
 	@PutMapping("/api/userExercise/exercice_id/")
-	public boolean setUserExerciseStatusData(@RequestBody UserExercice userExercice) { 
+	public boolean setUserExerciseStatusData(@RequestBody UserExercise userExercice) { 
 
 		return userExerciseService.setUserExerciseStatusData(userExercice);
 		
