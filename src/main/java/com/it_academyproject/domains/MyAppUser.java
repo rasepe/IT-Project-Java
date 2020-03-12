@@ -63,7 +63,7 @@ public abstract class MyAppUser {
 
 	
 	@ManyToOne (fetch = FetchType.EAGER)
-	@JoinColumn (name="rol_id")
+	@JoinColumn (name="role_id")
 	protected Role role;
 	
 	@OneToMany (targetEntity = Absence.class, cascade = CascadeType.ALL)
@@ -219,11 +219,7 @@ public abstract class MyAppUser {
 		this.seat = seat;
 	}
 
-	/*	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", idDocument=" + idDocument
-				+ ", email=" + email + ", gender=" + gender + ", portrait=" + portrait + ", password=" + password
-				+ ", enabled=" + enabled + "]";
-	}	*/
+
 	
 	
 	

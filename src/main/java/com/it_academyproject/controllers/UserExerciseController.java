@@ -3,7 +3,6 @@ package com.it_academyproject.controllers;
 
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.it_academyproject.domains.Exercise;
 import com.it_academyproject.domains.MyAppUser;
 import com.it_academyproject.domains.UserExercise;
 import com.it_academyproject.repositories.UserExerciceRepository;
@@ -22,10 +21,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class UserExerciseController
@@ -100,13 +95,7 @@ public class UserExerciseController
 
 
 
-	/*
-	 * Modelo de llamada PUT: { "id": 1, "statusExercice":{"id":4} }
-	 * La fecha se actualiza automáticamente desde el back end, 
-	 * no hace falta incorporarla en el JSON
-	 */
-	//SET @CrossOrigin BEFORE DEPLOYING TO PRODUCTION!
-	@CrossOrigin
+	@CrossOrigin  //Set @CrossOrigin with allowed URL's when deploying to production!
 	@JsonView(View.Summary.class)
 	@PutMapping("/api/userExercise/exercice_id/")
 	public boolean setUserExerciseStatusData(@RequestBody UserExercise userExercice) { 
