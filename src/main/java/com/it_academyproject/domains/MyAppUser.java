@@ -70,8 +70,7 @@ public abstract class MyAppUser {
 	private List <Absence> absences = new ArrayList <Absence>();
 	@OneToMany (targetEntity = Course.class, cascade = CascadeType.ALL)
 	private List <Course> courses = new ArrayList <Course>();
-	@OneToMany (targetEntity = UserExercice.class, cascade = CascadeType.ALL)
-	private List <UserExercice> userExercices = new ArrayList <UserExercice>();
+
 	
 	public MyAppUser() {
 		
@@ -108,25 +107,7 @@ public abstract class MyAppUser {
 		}
 		
 	}
-//	
-//	 public MyAppUser(String email, String password) throws EmptyFieldException
-//	    {
-//	        if ((email != "")&&(password!=""))
-//	        {
-//	            this.email = email;
-//	            this.password = password;
-//	            this.lastLogin = new Date();
-//	            this.enabled = true;
-//	        }
-//	        else if (email == "")
-//	        {
-//	            throw (new EmptyFieldException("email"));
-//	        }
-//	        else if ( password == "" )
-//	        {
-//	            throw (new EmptyFieldException("password"));
-//	        }
-//	    }
+
 
 	public String getId() {
 		return id;

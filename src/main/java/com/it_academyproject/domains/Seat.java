@@ -13,8 +13,6 @@ public class Seat
     private int colNumber;
     private int classRoom;
 
-    @OneToMany
-    private List<MyAppUser> myAppUser;
 
     
     
@@ -45,14 +43,7 @@ public class Seat
     public void setColNumber(int colNumber) {
         this.colNumber = colNumber;
     }
-
-    public List<MyAppUser> getMyAppUser() {
-        return myAppUser;
-    }
-
-    public void setMyAppUser(List<MyAppUser> myAppUser) {
-        this.myAppUser = myAppUser;
-    }
+ 
 
     public int getClassRoom() {
         return classRoom;
