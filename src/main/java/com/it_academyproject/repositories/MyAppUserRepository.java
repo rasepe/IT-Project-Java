@@ -36,4 +36,5 @@ public interface MyAppUserRepository extends JpaRepository<MyAppUser, String>{
 	@Query(value="SELECT u from MyAppUser u WHERE u.firstName like '%:name%'")
 	List<MyAppUser> findUserByNameLike(@Param("name") String name);
 	
+	List<MyAppUser> findByIterations_IterationName(String iterationName);
 }

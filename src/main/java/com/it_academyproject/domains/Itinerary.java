@@ -1,9 +1,19 @@
 package com.it_academyproject.domains;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Itinerary {
@@ -18,11 +28,22 @@ public class Itinerary {
 	//--------------------------Constructors--------------------------------------------------------------
 	
 	public Itinerary() {
+		
 	}
 	
 	public Itinerary(String name) {
 		this.name = name;
 	}
+	
+	@ManyToMany(fetch = FetchType.LAZY,
+	            cascade = {
+                CascadeType.PERSIST,
+                CascadeType.MERGE
+            },
+            mappedBy = "itineraries")
+	@JsonIgnore
+    private Set<Project> projects = new HashSet<>();
+	
 	
 	//--------------------------Setters/Getters--------------------------------------------------------------------
 

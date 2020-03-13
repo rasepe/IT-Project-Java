@@ -3,7 +3,9 @@ package com.it_academyproject.domains;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
@@ -11,10 +13,13 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.it_academyproject.exceptions.EmptyFieldException;
 import com.it_academyproject.tools.View;
@@ -72,6 +77,19 @@ public class MyAppUser {
 	private List <Course> courses = new ArrayList <Course>();
 	@OneToMany (targetEntity = UserExercice.class, cascade = CascadeType.ALL)
 	private List <UserExercice> userExercices = new ArrayList <UserExercice>();
+	
+	@ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                CascadeType.PERSIST,
+                CascadeType.MERGE
+            })
+    @JoinTable(name = "user_iteration",
+            joinColumns = { @JoinColumn(name = "my_app_user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "iteration_id") })
+	@JsonIgnore
+	private Set<Iteration> iterations = new HashSet<>();
+	
+	
 	
 	public MyAppUser() {
 		
@@ -220,6 +238,17 @@ public class MyAppUser {
 	public void setSeat(Seat seat) {
 		this.seat = seat;
 	}
+
+	public Set<Iteration> getIterations() {
+		return iterations;
+	}
+
+	public void setIterations(Iteration iteration) {
+		this.iterations.add(iteration) ;
+	}
+	
+	
+	
 
 	/*	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", idDocument=" + idDocument
